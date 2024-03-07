@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Відкрити..." />
+              <MenuItem mnemonicParsing="false" text="Зберегти як..." />
+                  <MenuItem mnemonicParsing="false" text="Зберегти" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <Canvas height="200.0" width="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Назва файлу" />
+            <Label text="Розмір файлу" />
+         </children>
+      </HBox>
+   </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Group>
+               <children>
+                  <Label text="Основний текст" />
+                  <TextField fx:id="primaryTextField" layoutY="17.0" />
+               </children>
+            </Group>
+            <Group>
+               <children>
+                  <Label text="Додатковий текст" />
+                  <TextField fx:id="additionalTextField" layoutY="17.0" />
+               </children>
+            </Group>
+            <Group>
+               <children>
+                  <Label text="Мікротекст" />
+                  <TextField fx:id="microTextField" layoutY="17.0" />
+               </children>
+            </Group>
+         </children>
+      </VBox>
+   </right>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TitledPane prefHeight="200.0" prefWidth="200.0" text="Основний текст" />
+            <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" text="Додатковий текст" />
+            <TitledPane layoutX="10.0" layoutY="190.0" prefHeight="200.0" prefWidth="200.0" text="Мікротекст" />
+            <TitledPane layoutX="10.0" layoutY="221.0" prefHeight="200.0" prefWidth="200.0" text="Зовнішня рамка" />
+            <TitledPane layoutX="10.0" layoutY="237.0" prefHeight="200.0" prefWidth="200.0" text="Внутрішня рамка" />
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

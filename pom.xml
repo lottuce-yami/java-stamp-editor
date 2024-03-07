@@ -6,7 +6,7 @@
 
   <groupId>moe.lottuce</groupId>
   <artifactId>stamp-editor</artifactId>
-  <version>0.0</version>
+  <version>0.1</version>
   <name>StampEditor</name>
 
   <properties>
@@ -57,10 +57,10 @@
           <execution>
             <id>default-cli</id>
             <configuration>
-              <mainClass>moe.lottuce.stampeditor/moe.lottuce.stampeditor.HelloApplication</mainClass>
+              <mainClass>moe.lottuce.stampeditor/moe.lottuce.stampeditor.StampEditorApplication</mainClass>
               <launcher>stamp-editor</launcher>
-              <jlinkZipName>stamp-editor_v0.0</jlinkZipName>
-              <jlinkImageName>stamp-editor_v0.0</jlinkImageName>
+              <jlinkZipName>stamp-editor_v0.1</jlinkZipName>
+              <jlinkImageName>stamp-editor_v0.1</jlinkImageName>
               <noManPages>true</noManPages>
               <stripDebug>true</stripDebug>
               <noHeaderFiles>true</noHeaderFiles>
