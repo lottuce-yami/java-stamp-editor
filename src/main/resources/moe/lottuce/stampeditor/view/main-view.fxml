@@ -5,22 +5,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:controller="moe.lottuce.stampeditor.controllers.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Файл">
-            <items>
+         <menus>
+            <Menu mnemonicParsing="false" text="Файл">
+               <items>
                   <MenuItem mnemonicParsing="false" text="Відкрити..." />
-              <MenuItem mnemonicParsing="false" text="Зберегти як..." />
+                  <MenuItem mnemonicParsing="false" text="Зберегти як..." />
                   <MenuItem mnemonicParsing="false" text="Зберегти" />
-            </items>
-          </Menu>
-        </menus>
+               </items>
+            </Menu>
+         </menus>
       </MenuBar>
    </top>
    <center>
-      <Canvas height="200.0" width="200.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="stampCanvas" height="200.0" width="200.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -36,7 +36,7 @@
             <Group>
                <children>
                   <Label text="Основний текст" />
-                  <TextField fx:id="primaryTextField" layoutY="17.0" />
+                  <TextField fx:id="primaryTextField" onAction="#onPrimaryTextChanged" layoutY="17.0" />
                </children>
             </Group>
             <Group>
