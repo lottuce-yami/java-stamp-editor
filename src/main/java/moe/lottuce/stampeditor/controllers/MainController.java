@@ -33,6 +33,8 @@ public class MainController {
         double circleDiameter = canvasSide - 5;
         double circleRadius = circleDiameter / 2;
 
+        gc.clearRect(0, 0, canvasSide, canvasSide);
+
         gc.strokeOval(
                 canvasSide / 2 - circleRadius,
                 canvasSide / 2 - circleRadius,
