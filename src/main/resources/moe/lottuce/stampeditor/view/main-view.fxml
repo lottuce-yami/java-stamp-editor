@@ -14,6 +14,7 @@
                   <MenuItem mnemonicParsing="false" text="Відкрити..." />
                   <MenuItem mnemonicParsing="false" text="Зберегти як..." />
                   <MenuItem mnemonicParsing="false" text="Зберегти" />
+                  <MenuItem onAction="#onExport" mnemonicParsing="false" text="Експорт..." />
                </items>
             </Menu>
          </menus>
