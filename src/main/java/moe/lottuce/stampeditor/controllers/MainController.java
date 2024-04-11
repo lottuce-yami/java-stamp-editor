@@ -10,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 
@@ -30,17 +31,10 @@ public class MainController {
         GraphicsContext gc = stampCanvas.getGraphicsContext2D();
 
         double canvasSide = stampCanvas.getWidth();
-        double circleDiameter = canvasSide - 5;
-        double circleRadius = circleDiameter / 2;
 
         gc.clearRect(0, 0, canvasSide, canvasSide);
 
-        gc.strokeOval(
-                canvasSide / 2 - circleRadius,
-                canvasSide / 2 - circleRadius,
-                circleDiameter,
-                circleDiameter
-        );
+        drawRoundFrame(gc, 100.0, Color.NAVY, 4.0);
 
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
@@ -72,5 +66,20 @@ public class MainController {
             RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
             ImageIO.write(renderedImage, "PNG", exportFile);
         }
+    }
+
+    protected void drawRoundFrame(GraphicsContext gc, double diameter, Paint paint, double width) {
+        double canvasSide = stampCanvas.getWidth();
+        double radius = diameter / 2;
+
+        gc.setStroke(paint);
+        gc.setLineWidth(width);
+
+        gc.strokeOval(
+                canvasSide / 2 - radius,
+                canvasSide / 2 - radius,
+                diameter,
+                diameter
+        );
     }
 }
