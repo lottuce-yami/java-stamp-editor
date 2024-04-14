@@ -12,6 +12,8 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
@@ -29,12 +31,11 @@ public class MainController {
     @FXML
     protected void onPrimaryTextChanged(ActionEvent actionEvent) {
         GraphicsContext gc = stampCanvas.getGraphicsContext2D();
-
         double canvasSide = stampCanvas.getWidth();
 
         gc.clearRect(0, 0, canvasSide, canvasSide);
 
-        drawRoundFrame(gc, 100.0, Color.NAVY, 4.0);
+        drawRoundFrame(gc, 195, Color.NAVY, 5);
 
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
@@ -43,6 +44,7 @@ public class MainController {
                 canvasSide / 2,
                 canvasSide / 2
         );
+        drawCircularText(gc, primaryTextField.getText(), 180, 180, 360);
     }
 
     @FXML
@@ -81,5 +83,40 @@ public class MainController {
                 diameter,
                 diameter
         );
+    }
+
+    protected void drawCircularText(GraphicsContext gc, String text, double diameter, double startAngle, double endAngle) {
+        double radius = diameter / 2;
+        double angleArea = Math.abs(startAngle - endAngle);
+        double angleStep = angleArea / text.length();
+        double currentAngle = startAngle;
+
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+
+            double x = getPointAtAngle(radius, currentAngle)[0];
+            double y = getPointAtAngle(radius, currentAngle)[1];
+
+            Rotate r = new Rotate(currentAngle+90, x, y);
+            gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+
+            gc.fillText(String.valueOf(c), x, y);
+            currentAngle += angleStep;
+        }
+
+        gc.setTransform(new Affine());
+    }
+
+    protected double[] getPointAtAngle(double radius, double angle) {
+        double centerX = stampCanvas.getWidth() / 2;
+        double centerY = stampCanvas.getHeight() / 2;
+
+        double x = radius * Math.cos(Math.toRadians(angle));
+        double y = radius * Math.sin(Math.toRadians(angle));
+
+        x += centerX;
+        y += centerY;
+
+        return new double[]{x, y};
     }
 }
