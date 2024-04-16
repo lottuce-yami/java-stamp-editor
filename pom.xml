@@ -71,6 +71,15 @@
               <noHeaderFiles>true</noHeaderFiles>
             </configuration>
           </execution>
+          <execution>
+            <id>debug</id>
+            <configuration>
+              <mainClass>moe.lottuce.stampeditor/moe.lottuce.stampeditor.StampEditorApplication</mainClass>
+              <options>
+                <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:4444</option>
+              </options>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
