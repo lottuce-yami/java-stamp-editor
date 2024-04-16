@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
@@ -87,21 +89,41 @@ public class MainController {
 
     protected void drawCircularText(GraphicsContext gc, String text, double diameter, double startAngle, double endAngle) {
         double radius = diameter / 2;
+        double circlePerimeter = 2 * Math.PI * radius;
+        double angleInPixels = circlePerimeter / 360;
         double angleArea = Math.abs(startAngle - endAngle);
-        double angleStep = angleArea / text.length();
+
+        String stringWithoutSpaces = text.replace(" ", "");
+        Text sceneText = new Text(stringWithoutSpaces);
+        Font font = gc.getFont();
+        sceneText.setFont(font);
+        double tracking = (sceneText.getLayoutBounds().getHeight() / font.getSize()) * 5.25;
+        double textWidth = sceneText.getLayoutBounds().getWidth();
+
+        double trackingInAngles = tracking / angleInPixels;
+        double textWidthInAngles = textWidth / angleInPixels;
+        double emptyAreaInAngles = angleArea - textWidthInAngles;
+        int spaceCount = text.length() - text.replace(" ", "").length();
+        double spaceWidthInAngles = emptyAreaInAngles / spaceCount;
+
         double currentAngle = startAngle;
 
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
 
-            double x = getPointAtAngle(radius, currentAngle)[0];
-            double y = getPointAtAngle(radius, currentAngle)[1];
+            if (c == ' ') {
+                currentAngle += spaceWidthInAngles;
+            }
+            else {
+                double x = getPointAtAngle(radius, currentAngle)[0];
+                double y = getPointAtAngle(radius, currentAngle)[1];
 
-            Rotate r = new Rotate(currentAngle+90, x, y);
-            gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+                Rotate r = new Rotate(currentAngle+90, x, y);
+                gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 
-            gc.fillText(String.valueOf(c), x, y);
-            currentAngle += angleStep;
+                gc.fillText(String.valueOf(c), x, y);
+                currentAngle += trackingInAngles;
+            }
         }
 
         gc.setTransform(new Affine());
