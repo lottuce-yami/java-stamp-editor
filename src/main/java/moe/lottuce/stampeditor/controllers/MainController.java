@@ -51,8 +51,12 @@ public class MainController {
         drawRoundFrame(195, Color.NAVY, 5);
         drawRoundFrame(185, Color.NAVY, 2.5);
         drawRoundFrame(150, Color.NAVY, 2.5);
-        drawCentralText(primaryTextField.getText());
-        drawCircularText(additionalTextField.getText(), 5, 180, 180, 360);
+
+        Font primaryFont = new Font("Times New Roman", 16);
+        drawCentralText(primaryTextField.getText(), primaryFont, Color.NAVY);
+
+        Font additionalFont = new Font("Times New Roman", 12);
+        drawCircularText(additionalTextField.getText(), additionalFont, Color.NAVY, 5, 165, 185, 535);
     }
 
     @FXML
@@ -95,17 +99,21 @@ public class MainController {
         gc.setLineWidth(1.0);
     }
 
-    protected void drawCentralText(String text) {
+    protected void drawCentralText(String text, Font font, Paint paint) {
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
+        gc.setFont(font);
+        gc.setFill(paint);
 
         gc.fillText(text, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2);
 
         gc.setTextAlign(TextAlignment.LEFT);
         gc.setTextBaseline(VPos.BASELINE);
+        gc.setFont(Font.getDefault());
+        gc.setFill(Color.BLACK);
     }
 
-    protected void drawCircularText(String text, double tracking, double diameter, double startAngle, double endAngle) {
+    protected void drawCircularText(String text, Font font, Paint paint, double tracking, double diameter, double startAngle, double endAngle) {
         double radius = diameter / 2;
         double circlePerimeter = 2 * Math.PI * radius;
         double angleInPixels = circlePerimeter / 360;
@@ -115,7 +123,6 @@ public class MainController {
         int spaceCount = text.length() - letterCount;
 
         Text sceneText = new Text();
-        Font font = gc.getFont();
         sceneText.setFont(font);
 
         sceneText.setText(" ");
@@ -142,6 +149,9 @@ public class MainController {
         double emptyAreaInAngles = angleArea - textWidthInAngles;
         double spaceWidthInAngles = emptyAreaInAngles / spaceCount;
 
+        gc.setFont(font);
+        gc.setFill(paint);
+
         double currentAngle = startAngle;
 
         for (int i = 0; i < text.length(); i++) {
@@ -162,6 +172,8 @@ public class MainController {
             currentAngle += symbolsWidth[i] / angleInPixels;
         }
 
+        gc.setFont(Font.getDefault());
+        gc.setFill(Color.BLACK);
         gc.setTransform(new Affine());
     }
 
