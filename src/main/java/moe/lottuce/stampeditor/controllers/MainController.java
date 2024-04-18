@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MainController {
     @FXML
@@ -97,28 +98,24 @@ public class MainController {
         sceneText.setText(" ");
         double trackingInPixels = (sceneText.getLayoutBounds().getHeight() / font.getSize()) * tracking;
 
-        double textWidthInPixels = 0;
-        double[] symbolsWidthInAngles = new double[text.length()];
-        int trackingCount = -1;
+        double[] symbolsWidth = new double[text.length()];
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
 
             if (c == ' ') {
-                trackingCount--;
+                symbolsWidth[i-1] -= trackingInPixels;
                 continue;
             }
 
             sceneText.setText(String.valueOf(c));
-            symbolsWidthInAngles[i] = sceneText.getLayoutBounds().getWidth() / angleInPixels;
-            textWidthInPixels += sceneText.getLayoutBounds().getWidth();
+            symbolsWidth[i] = sceneText.getLayoutBounds().getWidth() + trackingInPixels;
 
-            trackingCount++;
+            if (i == text.length() - 1) {
+                symbolsWidth[i] -= trackingInPixels;
+            }
         }
 
-        textWidthInPixels += trackingCount * trackingInPixels;
-
-        double trackingInAngles = trackingInPixels / angleInPixels;
-        double textWidthInAngles = textWidthInPixels / angleInPixels;
+        double textWidthInAngles = Arrays.stream(symbolsWidth).sum() / angleInPixels;
         double emptyAreaInAngles = angleArea - textWidthInAngles;
         double spaceWidthInAngles = emptyAreaInAngles / spaceCount;
 
@@ -139,7 +136,7 @@ public class MainController {
             gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 
             gc.fillText(String.valueOf(c), x, y);
-            currentAngle += symbolsWidthInAngles[i] + trackingInAngles;
+            currentAngle += symbolsWidth[i] / angleInPixels;
         }
 
         gc.setTransform(new Affine());
