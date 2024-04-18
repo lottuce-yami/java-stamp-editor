@@ -3,6 +3,7 @@ package moe.lottuce.stampeditor.controllers;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
@@ -49,6 +51,7 @@ public class MainController {
         drawRoundFrame(195, Color.NAVY, 5);
         drawRoundFrame(185, Color.NAVY, 2.5);
         drawRoundFrame(150, Color.NAVY, 2.5);
+        drawCentralText(primaryTextField.getText());
         drawCircularText(additionalTextField.getText(), 5, 180, 180, 360);
     }
 
@@ -90,6 +93,16 @@ public class MainController {
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1.0);
+    }
+
+    protected void drawCentralText(String text) {
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
+
+        gc.fillText(text, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2);
+
+        gc.setTextAlign(TextAlignment.LEFT);
+        gc.setTextBaseline(VPos.BASELINE);
     }
 
     protected void drawCircularText(String text, double tracking, double diameter, double startAngle, double endAngle) {
