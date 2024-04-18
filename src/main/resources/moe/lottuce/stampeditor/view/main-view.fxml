@@ -37,19 +37,19 @@
             <Group>
                <children>
                   <Label text="Основний текст" />
-                  <TextField fx:id="primaryTextField" onAction="#onPrimaryTextChanged" layoutY="17.0" />
+                  <TextField fx:id="primaryTextField" onAction="#onTextChanged" layoutY="17.0" />
                </children>
             </Group>
             <Group>
                <children>
                   <Label text="Додатковий текст" />
-                  <TextField fx:id="additionalTextField" layoutY="17.0" />
+                  <TextField fx:id="additionalTextField" onAction="#onTextChanged" layoutY="17.0" />
                </children>
             </Group>
             <Group>
                <children>
                   <Label text="Мікротекст" />
-                  <TextField fx:id="microTextField" layoutY="17.0" />
+                  <TextField fx:id="microTextField" onAction="#onTextChanged" layoutY="17.0" />
                </children>
             </Group>
          </children>

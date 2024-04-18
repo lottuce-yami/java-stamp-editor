@@ -3,7 +3,6 @@ package moe.lottuce.stampeditor.controllers;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -31,17 +30,26 @@ public class MainController {
     private TextField primaryTextField;
 
     @FXML
-    protected void onPrimaryTextChanged(ActionEvent actionEvent) {
-        GraphicsContext gc = stampCanvas.getGraphicsContext2D();
-        double canvasSide = stampCanvas.getWidth();
+    private TextField additionalTextField;
 
-        gc.clearRect(0, 0, canvasSide, canvasSide);
+    @FXML
+    private TextField microTextField;
 
-        drawRoundFrame(gc, 195, Color.NAVY, 5);
+    private GraphicsContext gc;
 
-        gc.setTextBaseline(VPos.CENTER);
-//        gc.fillText(primaryTextField.getText(), canvasSide / 2, canvasSide / 2);
-        drawCircularText(gc, primaryTextField.getText(), 5, 180, 180, 360);
+    @FXML
+    public void initialize() {
+        gc = stampCanvas.getGraphicsContext2D();
+    }
+
+    @FXML
+    protected void onTextChanged(ActionEvent actionEvent) {
+        gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
+
+        drawRoundFrame(195, Color.NAVY, 5);
+        drawRoundFrame(185, Color.NAVY, 2.5);
+        drawRoundFrame(150, Color.NAVY, 2.5);
+        drawCircularText(additionalTextField.getText(), 5, 180, 180, 360);
     }
 
     @FXML
@@ -67,22 +75,24 @@ public class MainController {
         }
     }
 
-    protected void drawRoundFrame(GraphicsContext gc, double diameter, Paint paint, double width) {
-        double canvasSide = stampCanvas.getWidth();
+    protected void drawRoundFrame(double diameter, Paint paint, double width) {
         double radius = diameter / 2;
 
         gc.setStroke(paint);
         gc.setLineWidth(width);
 
         gc.strokeOval(
-                canvasSide / 2 - radius,
-                canvasSide / 2 - radius,
+                stampCanvas.getWidth() / 2 - radius,
+                stampCanvas.getHeight() / 2 - radius,
                 diameter,
                 diameter
         );
+
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(1.0);
     }
 
-    protected void drawCircularText(GraphicsContext gc, String text, double tracking, double diameter, double startAngle, double endAngle) {
+    protected void drawCircularText(String text, double tracking, double diameter, double startAngle, double endAngle) {
         double radius = diameter / 2;
         double circlePerimeter = 2 * Math.PI * radius;
         double angleInPixels = circlePerimeter / 360;
