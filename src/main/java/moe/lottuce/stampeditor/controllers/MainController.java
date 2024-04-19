@@ -17,6 +17,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
+import moe.lottuce.stampeditor.models.CircularFrame;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
@@ -46,11 +47,17 @@ public class MainController {
 
     @FXML
     protected void onTextChanged(ActionEvent actionEvent) {
+        CircularFrame[] frames = {
+                new CircularFrame(stampCanvas, 5, Color.NAVY, 195),
+                new CircularFrame(stampCanvas, 2.5, Color.NAVY, 185),
+                new CircularFrame(stampCanvas, 2.5, Color.NAVY, 150)
+        };
+
         gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
 
-        drawRoundFrame(195, Color.NAVY, 5);
-        drawRoundFrame(185, Color.NAVY, 2.5);
-        drawRoundFrame(150, Color.NAVY, 2.5);
+        for (CircularFrame frame : frames) {
+            frame.draw();
+        }
 
         Font primaryFont = new Font("Times New Roman", 16);
         drawCentralText(primaryTextField.getText(), primaryFont, Color.NAVY);
@@ -80,23 +87,6 @@ public class MainController {
             RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
             ImageIO.write(renderedImage, "PNG", exportFile);
         }
-    }
-
-    protected void drawRoundFrame(double diameter, Paint paint, double width) {
-        double radius = diameter / 2;
-
-        gc.setStroke(paint);
-        gc.setLineWidth(width);
-
-        gc.strokeOval(
-                stampCanvas.getWidth() / 2 - radius,
-                stampCanvas.getHeight() / 2 - radius,
-                diameter,
-                diameter
-        );
-
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(1.0);
     }
 
     protected void drawCentralText(String text, Font font, Paint paint) {
