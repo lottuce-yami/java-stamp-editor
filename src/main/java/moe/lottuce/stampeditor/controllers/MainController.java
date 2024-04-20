@@ -1,24 +1,20 @@
 package moe.lottuce.stampeditor.controllers;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.FileChooser;
 import moe.lottuce.stampeditor.drawables.CircularFrame;
 import moe.lottuce.stampeditor.drawables.CircularText;
 import moe.lottuce.stampeditor.drawables.Drawable;
 import moe.lottuce.stampeditor.drawables.HorizontalText;
+import moe.lottuce.stampeditor.io.Exporter;
 
-import javax.imageio.ImageIO;
-import java.awt.image.RenderedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class MainController {
@@ -59,25 +55,15 @@ public class MainController {
     }
 
     @FXML
-    protected void onExport(ActionEvent actionEvent) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Експорт...");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PNG", "*.png")
-        );
-        fileChooser.setInitialFileName("stamp");
-
-        File exportFile = fileChooser.showSaveDialog(stampCanvas.getScene().getWindow());
-        if (exportFile != null) {
-            int canvasSize = (int) stampCanvas.getWidth();
-            WritableImage writableImage = new WritableImage(canvasSize, canvasSize);
-
-            SnapshotParameters params = new SnapshotParameters();
-            params.setFill(Color.TRANSPARENT);
-            stampCanvas.snapshot(params, writableImage);
-
-            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-            ImageIO.write(renderedImage, "PNG", exportFile);
+    protected void onExport(ActionEvent actionEvent) {
+        try {
+            Exporter.exportAs(stampCanvas);
+        }
+        catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При експорті виникла помилка: %1$s", e.getLocalizedMessage()));
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> alert.close());
         }
     }
 }
