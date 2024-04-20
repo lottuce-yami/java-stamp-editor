@@ -4,7 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-public class CircularFrame extends Frame {
+public final class CircularFrame extends Frame {
     private double diameter;
 
     public double getDiameter() {

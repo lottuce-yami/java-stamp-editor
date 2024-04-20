@@ -7,7 +7,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-public class HorizontalText extends Text {
+public final class HorizontalText extends Text {
     private double x;
 
     public double getX() {

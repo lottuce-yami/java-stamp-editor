@@ -9,7 +9,7 @@ import javafx.scene.transform.Rotate;
 
 import java.util.Arrays;
 
-public class CircularText extends Text {
+public final class CircularText extends Text {
     private double diameter;
 
     public double getDiameter() {
@@ -123,7 +123,7 @@ public class CircularText extends Text {
         gc.setTransform(new Affine());
     }
 
-    protected double[] getPointAtAngle(double radius, double angle) {
+    private double[] getPointAtAngle(double radius, double angle) {
         double centerX = canvas.getWidth() / 2;
         double centerY = canvas.getHeight() / 2;
 
