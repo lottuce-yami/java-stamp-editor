@@ -3,7 +3,6 @@ package moe.lottuce.stampeditor.controllers;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,11 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
 import moe.lottuce.stampeditor.models.CircularFrame;
+import moe.lottuce.stampeditor.models.HorizontalText;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
@@ -53,14 +52,19 @@ public class MainController {
                 new CircularFrame(stampCanvas, 2.5, Color.NAVY, 150)
         };
 
+        HorizontalText[] texts = {
+                new HorizontalText(stampCanvas, primaryTextField.getText(), new Font("Times New Roman", 16), Color.NAVY)
+        };
+
         gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
 
         for (CircularFrame frame : frames) {
             frame.draw();
         }
 
-        Font primaryFont = new Font("Times New Roman", 16);
-        drawCentralText(primaryTextField.getText(), primaryFont, Color.NAVY);
+        for (HorizontalText text : texts) {
+            text.draw();
+        }
 
         Font additionalFont = new Font("Times New Roman", 12);
         drawCircularText(additionalTextField.getText(), additionalFont, Color.NAVY, 5, 165, 185, 535);
@@ -87,20 +91,6 @@ public class MainController {
             RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
             ImageIO.write(renderedImage, "PNG", exportFile);
         }
-    }
-
-    protected void drawCentralText(String text, Font font, Paint paint) {
-        gc.setTextAlign(TextAlignment.CENTER);
-        gc.setTextBaseline(VPos.CENTER);
-        gc.setFont(font);
-        gc.setFill(paint);
-
-        gc.fillText(text, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2);
-
-        gc.setTextAlign(TextAlignment.LEFT);
-        gc.setTextBaseline(VPos.BASELINE);
-        gc.setFont(Font.getDefault());
-        gc.setFill(Color.BLACK);
     }
 
     protected void drawCircularText(String text, Font font, Paint paint, double tracking, double diameter, double startAngle, double endAngle) {
