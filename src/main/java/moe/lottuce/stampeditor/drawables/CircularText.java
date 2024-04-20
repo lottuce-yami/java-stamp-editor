@@ -65,33 +65,10 @@ public final class CircularText extends Text {
         double angleInPixels = circlePerimeter / 360;
         double angleArea = Math.abs(startAngle - endAngle);
 
-        int letterCount = text.replace(" ", "").length();
-        int spaceCount = text.length() - letterCount;
+        double[] charsWidth = calculateCharsWidth(text, font, tracking);
+        int spaceCount = text.length() - text.replace(" ", "").length();
 
-        javafx.scene.text.Text sceneText = new javafx.scene.text.Text();
-        sceneText.setFont(font);
-
-        sceneText.setText(" ");
-        double trackingInPixels = (sceneText.getLayoutBounds().getHeight() / font.getSize()) * tracking;
-
-        double[] symbolsWidth = new double[text.length()];
-        for (int i = 0; i < text.length(); i++) {
-            char c = text.charAt(i);
-
-            if (c == ' ') {
-                symbolsWidth[i-1] -= trackingInPixels;
-                continue;
-            }
-
-            sceneText.setText(String.valueOf(c));
-            symbolsWidth[i] = sceneText.getLayoutBounds().getWidth() + trackingInPixels;
-
-            if (i == text.length() - 1) {
-                symbolsWidth[i] -= trackingInPixels;
-            }
-        }
-
-        double textWidthInAngles = Arrays.stream(symbolsWidth).sum() / angleInPixels;
+        double textWidthInAngles = Arrays.stream(charsWidth).sum() / angleInPixels;
         double emptyAreaInAngles = angleArea - textWidthInAngles;
         double spaceWidthInAngles = emptyAreaInAngles / spaceCount;
 
@@ -116,7 +93,7 @@ public final class CircularText extends Text {
             gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 
             gc.fillText(String.valueOf(c), x, y);
-            currentAngle += symbolsWidth[i] / angleInPixels;
+            currentAngle += charsWidth[i] / angleInPixels;
         }
 
         gc.setFont(Font.getDefault());
@@ -132,5 +109,32 @@ public final class CircularText extends Text {
         y += yOffset;
 
         return new double[]{x, y};
+    }
+
+    private static double[] calculateCharsWidth(String text, Font font, double tracking) {
+        javafx.scene.text.Text sceneText = new javafx.scene.text.Text();
+        sceneText.setFont(font);
+
+        sceneText.setText(" ");
+        double trackingInPixels = (sceneText.getLayoutBounds().getHeight() / font.getSize()) * tracking;
+
+        double[] charsWidth = new double[text.length()];
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+
+            if (c == ' ') {
+                charsWidth[i-1] -= trackingInPixels;
+                continue;
+            }
+
+            sceneText.setText(String.valueOf(c));
+            charsWidth[i] = sceneText.getLayoutBounds().getWidth() + trackingInPixels;
+
+            if (i == text.length() - 1) {
+                charsWidth[i] -= trackingInPixels;
+            }
+        }
+
+        return charsWidth;
     }
 }
