@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import moe.lottuce.stampeditor.models.CircularFrame;
 import moe.lottuce.stampeditor.models.CircularText;
+import moe.lottuce.stampeditor.models.Drawable;
 import moe.lottuce.stampeditor.models.HorizontalText;
 
 import javax.imageio.ImageIO;
@@ -42,32 +43,18 @@ public class MainController {
 
     @FXML
     protected void onTextChanged(ActionEvent actionEvent) {
-        CircularFrame[] frames = {
+        Drawable[] drawables = {
                 new CircularFrame(stampCanvas, 5, Color.NAVY, 195),
                 new CircularFrame(stampCanvas, 2.5, Color.NAVY, 185),
-                new CircularFrame(stampCanvas, 2.5, Color.NAVY, 150)
-        };
-
-        HorizontalText[] horizontalTexts = {
-                new HorizontalText(stampCanvas, primaryTextField.getText(), new Font("Times New Roman", 16), Color.NAVY)
-        };
-
-        CircularText[] circularTexts = {
+                new CircularFrame(stampCanvas, 2.5, Color.NAVY, 150),
+                new HorizontalText(stampCanvas, primaryTextField.getText(), new Font("Times New Roman", 16), Color.NAVY),
                 new CircularText(stampCanvas, additionalTextField.getText(), new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)
         };
 
         gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
 
-        for (CircularFrame frame : frames) {
-            frame.draw();
-        }
-
-        for (HorizontalText text : horizontalTexts) {
-            text.draw();
-        }
-
-        for (CircularText text : circularTexts) {
-            text.draw();
+        for (Drawable drawable : drawables) {
+            drawable.draw();
         }
     }
 

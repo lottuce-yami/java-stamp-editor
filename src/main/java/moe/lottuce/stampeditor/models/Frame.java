@@ -4,7 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
-public abstract class Frame {
+public abstract class Frame implements Drawable {
     protected final Canvas canvas;
 
     protected final GraphicsContext gc;

@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
-public abstract class Text {
+public abstract class Text implements Drawable {
     protected final Canvas canvas;
 
     protected final GraphicsContext gc;
