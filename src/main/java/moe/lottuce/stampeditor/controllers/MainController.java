@@ -11,10 +11,10 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import moe.lottuce.stampeditor.models.CircularFrame;
-import moe.lottuce.stampeditor.models.CircularText;
-import moe.lottuce.stampeditor.models.Drawable;
-import moe.lottuce.stampeditor.models.HorizontalText;
+import moe.lottuce.stampeditor.drawables.CircularFrame;
+import moe.lottuce.stampeditor.drawables.CircularText;
+import moe.lottuce.stampeditor.drawables.Drawable;
+import moe.lottuce.stampeditor.drawables.HorizontalText;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;

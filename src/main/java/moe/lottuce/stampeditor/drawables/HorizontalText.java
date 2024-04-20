@@ -1,4 +1,4 @@
-package moe.lottuce.stampeditor.models;
+package moe.lottuce.stampeditor.drawables;
 
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;

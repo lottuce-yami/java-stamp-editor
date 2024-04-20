@@ -1,4 +1,4 @@
-package moe.lottuce.stampeditor.models;
+package moe.lottuce.stampeditor.drawables;
 
 public interface Drawable {
     void draw();
