@@ -108,8 +108,9 @@ public final class CircularText extends Text {
                 continue;
             }
 
-            double x = getPointAtAngle(radius, currentAngle)[0];
-            double y = getPointAtAngle(radius, currentAngle)[1];
+            double[] coordinates = getPointAtAngle(radius, currentAngle, canvas.getWidth() / 2, canvas.getHeight() / 2);
+            double x = coordinates[0];
+            double y = coordinates[1];
 
             Rotate r = new Rotate(currentAngle + 90, x, y);
             gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
@@ -123,15 +124,12 @@ public final class CircularText extends Text {
         gc.setTransform(new Affine());
     }
 
-    private double[] getPointAtAngle(double radius, double angle) {
-        double centerX = canvas.getWidth() / 2;
-        double centerY = canvas.getHeight() / 2;
-
+    private static double[] getPointAtAngle(double radius, double angle, double xOffset, double yOffset) {
         double x = radius * Math.cos(Math.toRadians(angle));
         double y = radius * Math.sin(Math.toRadians(angle));
 
-        x += centerX;
-        y += centerY;
+        x += xOffset;
+        y += yOffset;
 
         return new double[]{x, y};
     }
