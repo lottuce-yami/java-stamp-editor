@@ -14,6 +14,7 @@ import moe.lottuce.stampeditor.drawables.CircularText;
 import moe.lottuce.stampeditor.drawables.Drawable;
 import moe.lottuce.stampeditor.drawables.HorizontalText;
 import moe.lottuce.stampeditor.io.Exporter;
+import moe.lottuce.stampeditor.io.Writer;
 
 import java.io.IOException;
 
@@ -32,6 +33,8 @@ public class MainController {
 
     private GraphicsContext gc;
 
+    private Drawable[] drawables;
+
     @FXML
     public void initialize() {
         gc = stampCanvas.getGraphicsContext2D();
@@ -39,7 +42,7 @@ public class MainController {
 
     @FXML
     protected void onTextChanged(ActionEvent actionEvent) {
-        Drawable[] drawables = {
+        drawables = new Drawable[] {
                 new CircularFrame(stampCanvas, 5, Color.NAVY, 195),
                 new CircularFrame(stampCanvas, 2.5, Color.NAVY, 185),
                 new CircularFrame(stampCanvas, 2.5, Color.NAVY, 150),
@@ -61,6 +64,19 @@ public class MainController {
         }
         catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При експорті виникла помилка: %1$s", e.getLocalizedMessage()));
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> alert.close());
+        }
+    }
+
+    @FXML
+    protected void onSaveAs(ActionEvent actionEvent) {
+        try {
+            Writer.saveAs(stampCanvas.getScene().getWindow(), drawables);
+        }
+        catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При зберіганні виникла помилка: %1$s", e.getLocalizedMessage()));
             alert.showAndWait()
                     .filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> alert.close());
