@@ -16,6 +16,7 @@ import moe.lottuce.stampeditor.drawables.CircularText;
 import moe.lottuce.stampeditor.drawables.Drawable;
 import moe.lottuce.stampeditor.drawables.HorizontalText;
 import moe.lottuce.stampeditor.io.Exporter;
+import moe.lottuce.stampeditor.io.Reader;
 import moe.lottuce.stampeditor.io.Stamp;
 import moe.lottuce.stampeditor.io.Writer;
 
@@ -53,11 +54,7 @@ public class MainController {
                 new CircularText(additionalTextField.getText(), new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)
         });
 
-        gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
-
-        for (Drawable drawable : stamp.drawables()) {
-            drawable.draw(stampCanvas);
-        }
+        redrawCanvas();
     }
 
     @FXML
@@ -83,6 +80,28 @@ public class MainController {
             alert.showAndWait()
                     .filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> alert.close());
+        }
+    }
+
+    @FXML
+    protected void onOpen(ActionEvent actionEvent) {
+        try {
+            stamp = Reader.open(stampCanvas.getScene().getWindow());
+            redrawCanvas();
+        }
+        catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При відкритті виникла помилка: %1$s", e.getLocalizedMessage()));
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> alert.close());
+        }
+    }
+
+    protected void redrawCanvas() {
+        gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
+
+        for (Drawable drawable : stamp.drawables()) {
+            drawable.draw(stampCanvas);
         }
     }
 }
