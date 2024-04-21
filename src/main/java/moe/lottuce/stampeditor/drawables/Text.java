@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import moe.lottuce.stampeditor.io.FontDeserializer;
+import moe.lottuce.stampeditor.io.FontSerializer;
 import moe.lottuce.stampeditor.io.PaintConverter;
 
 public abstract class Text implements Drawable {
@@ -19,6 +21,8 @@ public abstract class Text implements Drawable {
         this.text = text;
     }
 
+    @JsonSerialize(using = FontSerializer.class)
+    @JsonDeserialize(using = FontDeserializer.class)
     protected Font font;
 
     public Font getFont() {
