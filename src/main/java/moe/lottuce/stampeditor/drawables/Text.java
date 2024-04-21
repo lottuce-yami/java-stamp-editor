@@ -1,8 +1,12 @@
 package moe.lottuce.stampeditor.drawables;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import moe.lottuce.stampeditor.io.PaintConverter;
 
 public abstract class Text implements Drawable {
     protected String text;
@@ -25,6 +29,8 @@ public abstract class Text implements Drawable {
         this.font = font;
     }
 
+    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(contentConverter = PaintConverter.class)
     protected Paint paint;
 
     public Paint getPaint() {

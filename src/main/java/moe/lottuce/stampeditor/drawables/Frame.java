@@ -1,7 +1,11 @@
 package moe.lottuce.stampeditor.drawables;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Paint;
+import moe.lottuce.stampeditor.io.PaintConverter;
 
 public abstract class Frame implements Drawable {
     protected double width;
@@ -14,6 +18,8 @@ public abstract class Frame implements Drawable {
         this.width = width;
     }
 
+    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonDeserialize(contentConverter = PaintConverter.class)
     protected Paint paint;
 
     public Paint getPaint() {
