@@ -1,15 +1,10 @@
 package moe.lottuce.stampeditor.drawables;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 public abstract class Text implements Drawable {
-    protected final Canvas canvas;
-
-    protected final GraphicsContext gc;
-
     protected String text;
 
     public String getText() {
@@ -40,13 +35,16 @@ public abstract class Text implements Drawable {
         this.paint = paint;
     }
 
-    public Text(Canvas canvas, String text, Font font, Paint paint) {
-        this.canvas = canvas;
-        this.gc = canvas.getGraphicsContext2D();
+    public Text() {
+
+    }
+
+    public Text(String text, Font font, Paint paint) {
         setText(text);
         setFont(font);
         setPaint(paint);
     }
 
-    public abstract void draw();
+    @Override
+    public abstract void draw(Canvas canvas);
 }

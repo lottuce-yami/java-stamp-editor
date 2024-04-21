@@ -2,6 +2,7 @@ package moe.lottuce.stampeditor.drawables;
 
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -48,12 +49,12 @@ public final class HorizontalText extends Text {
         this.textBaseline = textBaseline;
     }
 
-    public HorizontalText(Canvas canvas, String text, Font font, Paint paint) {
-        this(canvas, text, font, paint, TextAlignment.CENTER, VPos.CENTER, canvas.getWidth() / 2, canvas.getHeight() / 2);
+    public HorizontalText() {
+        super();
     }
 
-    public HorizontalText(Canvas canvas, String text, Font font, Paint paint, TextAlignment textAlignment, VPos textBaseline, double x, double y) {
-        super(canvas, text, font, paint);
+    public HorizontalText(String text, Font font, Paint paint, TextAlignment textAlignment, VPos textBaseline, double x, double y) {
+        super(text, font, paint);
         setX(x);
         setY(y);
         setTextAlignment(textAlignment);
@@ -61,7 +62,9 @@ public final class HorizontalText extends Text {
     }
 
     @Override
-    public void draw() {
+    public void draw(Canvas canvas) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
         gc.setTextAlign(textAlignment);
         gc.setTextBaseline(textBaseline);
         gc.setFont(font);

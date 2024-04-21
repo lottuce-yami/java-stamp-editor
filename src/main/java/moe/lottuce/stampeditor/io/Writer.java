@@ -3,13 +3,12 @@ package moe.lottuce.stampeditor.io;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import moe.lottuce.stampeditor.drawables.Drawable;
 
 import java.io.File;
 import java.io.IOException;
 
 public class Writer {
-    public static void saveAs(Window window, Drawable[] drawables) throws IOException {
+    public static void saveAs(Window window, Stamp stamp) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Зберегти як...");
         fileChooser.getExtensionFilters().addAll(
@@ -20,7 +19,6 @@ public class Writer {
         File saveFile = fileChooser.showSaveDialog(window);
 
         if (saveFile != null) {
-            Stamp stamp = new Stamp(drawables);
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writeValue(saveFile, stamp);
         }

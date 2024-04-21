@@ -1,6 +1,7 @@
 package moe.lottuce.stampeditor.drawables;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -50,8 +51,12 @@ public final class CircularText extends Text {
         this.tracking = tracking;
     }
 
-    public CircularText(Canvas canvas, String text, Font font, Paint paint, double diameter, double startAngle, double endAngle, double tracking) {
-        super(canvas, text, font, paint);
+    public CircularText() {
+        super();
+    }
+
+    public CircularText(String text, Font font, Paint paint, double diameter, double startAngle, double endAngle, double tracking) {
+        super(text, font, paint);
         setDiameter(diameter);
         setStartAngle(startAngle);
         setEndAngle(endAngle);
@@ -59,7 +64,9 @@ public final class CircularText extends Text {
     }
 
     @Override
-    public void draw() {
+    public void draw(Canvas canvas) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
         double radius = diameter / 2;
         double circlePerimeter = 2 * Math.PI * radius;
         double angleInPixels = circlePerimeter / 360;

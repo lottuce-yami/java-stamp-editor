@@ -1,17 +1,10 @@
 package moe.lottuce.stampeditor.drawables;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
 public abstract class Frame implements Drawable {
-    protected final Canvas canvas;
-
-    protected final GraphicsContext gc;
-
     protected double width;
-
-    protected Paint paint;
 
     public double getWidth() {
         return width;
@@ -21,6 +14,8 @@ public abstract class Frame implements Drawable {
         this.width = width;
     }
 
+    protected Paint paint;
+
     public Paint getPaint() {
         return paint;
     }
@@ -29,12 +24,15 @@ public abstract class Frame implements Drawable {
         this.paint = paint;
     }
 
-    public Frame(Canvas canvas, double width, Paint paint) {
-        this.canvas = canvas;
-        this.gc = canvas.getGraphicsContext2D();
+    public Frame() {
+
+    }
+
+    public Frame(double width, Paint paint) {
         setWidth(width);
         setPaint(paint);
     }
 
-    public abstract void draw();
+    @Override
+    public abstract void draw(Canvas canvas);
 }

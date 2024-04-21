@@ -1,6 +1,7 @@
 package moe.lottuce.stampeditor.drawables;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -15,13 +16,19 @@ public final class CircularFrame extends Frame {
         this.diameter = diameter;
     }
 
-    public CircularFrame(Canvas canvas, double width, Paint paint, double diameter) {
-        super(canvas, width, paint);
+    public CircularFrame() {
+        super();
+    }
+
+    public CircularFrame(double width, Paint paint, double diameter) {
+        super(width, paint);
         setDiameter(diameter);
     }
 
     @Override
-    public void draw() {
+    public void draw(Canvas canvas) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
         double radius = diameter / 2;
 
         gc.setStroke(paint);
