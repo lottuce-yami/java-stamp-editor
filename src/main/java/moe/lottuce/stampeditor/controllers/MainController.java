@@ -21,6 +21,7 @@ import moe.lottuce.stampeditor.io.Stamp;
 import moe.lottuce.stampeditor.io.Writer;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class MainController {
     @FXML
@@ -85,6 +86,10 @@ public class MainController {
 
     @FXML
     protected void onOpen(ActionEvent actionEvent) {
+        if (!confirmProceedingWithoutSave()) {
+            return;
+        }
+
         try {
             stamp = Reader.open(stampCanvas.getScene().getWindow());
             redrawCanvas();
@@ -103,5 +108,12 @@ public class MainController {
         for (Drawable drawable : stamp.drawables()) {
             drawable.draw(stampCanvas);
         }
+    }
+
+    protected boolean confirmProceedingWithoutSave() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Ви не зберегли зміни в поточному файлі! Продовжити?");
+        Optional<ButtonType> response = alert.showAndWait();
+
+        return response.isPresent() && response.get() == ButtonType.OK;
     }
 }
