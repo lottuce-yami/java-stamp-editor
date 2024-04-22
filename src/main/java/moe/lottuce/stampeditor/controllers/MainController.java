@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -35,6 +35,9 @@ public class MainController {
 
     @FXML
     private TextField microTextField;
+
+    @FXML
+    private VBox drawables;
 
     private GraphicsContext gc;
 
@@ -115,5 +118,10 @@ public class MainController {
         Optional<ButtonType> response = alert.showAndWait();
 
         return response.isPresent() && response.get() == ButtonType.OK;
+    }
+
+    @FXML
+    protected void onDrawableAdded() {
+        drawables.getChildren().addFirst(new TitledPane("drawable", new AnchorPane()));
     }
 }

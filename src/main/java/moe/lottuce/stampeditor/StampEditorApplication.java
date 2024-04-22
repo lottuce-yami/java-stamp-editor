@@ -11,7 +11,7 @@ public class StampEditorApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource("view/main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 400);
         stage.setTitle("Редактор штампів та печаток");
         stage.setScene(scene);
         stage.show();

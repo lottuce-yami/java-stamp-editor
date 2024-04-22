@@ -1,69 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:controller="moe.lottuce.stampeditor.controllers.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controllers.MainController" prefHeight="400.0" prefWidth="800.0">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
-         <menus>
-            <Menu mnemonicParsing="false" text="Файл">
-               <items>
-                  <MenuItem onAction="#onOpen" mnemonicParsing="false" text="Відкрити..." />
-                  <MenuItem onAction="#onSaveAs" mnemonicParsing="false" text="Зберегти як..." />
-                  <MenuItem mnemonicParsing="false" text="Зберегти" />
-                  <MenuItem onAction="#onExport" mnemonicParsing="false" text="Експорт..." />
-               </items>
-            </Menu>
-         </menus>
+      <MenuBar>
+         <Menu text="Файл">
+            <MenuItem onAction="#onOpen" text="Відкрити..." />
+            <MenuItem onAction="#onSaveAs" text="Зберегти як..." />
+            <MenuItem text="Зберегти" />
+            <MenuItem onAction="#onExport" text="Експорт..." />
+         </Menu>
       </MenuBar>
    </top>
+   <left>
+      <ScrollPane prefWidth="200.0" hbarPolicy="NEVER">
+         <VBox fx:id="drawables">
+            <Button onAction="#onDrawableAdded" text="+" prefWidth="200.0" />
+         </VBox>
+      </ScrollPane>
+   </left>
    <center>
-      <Canvas fx:id="stampCanvas" height="200.0" width="200.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="stampCanvas" height="200.0" width="200.0" />
    </center>
-   <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Назва файлу" />
-            <Label text="Розмір файлу" />
-         </children>
-      </HBox>
-   </bottom>
    <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Group>
-               <children>
-                  <Label text="Основний текст" />
-                  <TextField fx:id="primaryTextField" onAction="#onTextChanged" layoutY="17.0" />
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <Label text="Додатковий текст" />
-                  <TextField fx:id="additionalTextField" onAction="#onTextChanged" layoutY="17.0" />
-               </children>
-            </Group>
-            <Group>
-               <children>
-                  <Label text="Мікротекст" />
-                  <TextField fx:id="microTextField" onAction="#onTextChanged" layoutY="17.0" />
-               </children>
-            </Group>
-         </children>
+      <VBox prefWidth="200.0">
+         <Label text="Основний текст" labelFor="$primaryTextField" />
+         <TextField fx:id="primaryTextField" onAction="#onTextChanged" />
+         <Label text="Додатковий текст" labelFor="$additionalTextField" />
+         <TextField fx:id="additionalTextField" onAction="#onTextChanged" />
+         <Label text="Мікротекст" labelFor="$microTextField" />
+         <TextField fx:id="microTextField" onAction="#onTextChanged" />
       </VBox>
    </right>
-   <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <TitledPane prefHeight="200.0" prefWidth="200.0" text="Основний текст" />
-            <TitledPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" text="Додатковий текст" />
-            <TitledPane layoutX="10.0" layoutY="190.0" prefHeight="200.0" prefWidth="200.0" text="Мікротекст" />
-            <TitledPane layoutX="10.0" layoutY="221.0" prefHeight="200.0" prefWidth="200.0" text="Зовнішня рамка" />
-            <TitledPane layoutX="10.0" layoutY="237.0" prefHeight="200.0" prefWidth="200.0" text="Внутрішня рамка" />
-         </children>
-      </VBox>
-   </left>
+   <bottom>
+      <HBox>
+         <Label text="Назва файлу" />
+         <Label text="Розмір файлу" />
+      </HBox>
+   </bottom>
 </BorderPane>
