@@ -41,25 +41,19 @@ public class HorizontalTextController {
     protected Text drawable;
 
 
-    public void initDrawable(Drawable drawable) {
-//        super.initDrawable(drawable);
-
-        if (drawable instanceof HorizontalText) {
-            this.drawable = (Text) drawable;
-
-            this.text.setText(((Text) drawable).getText());
-            this.fontName.setText(((Text) drawable).getFont().getName());
-            this.fontSize.getValueFactory().setValue(((Text) drawable).getFont().getSize());
-            this.color.setValue((Color) ((Text) drawable).getPaint());
-            this.x.getValueFactory().setValue(((HorizontalText) drawable).getX());
-            this.y.getValueFactory().setValue(((HorizontalText) drawable).getY());
-            this.textAlignment.setValue(((HorizontalText) drawable).getTextAlignment());
-            this.textBaseline.setValue(((HorizontalText) drawable).getTextBaseline());
-        }
+    public HorizontalTextController(Drawable drawable) {
+        this.drawable = (Text) drawable;
     }
 
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void initialize() {
+        this.text.setText(((Text) drawable).getText());
+        this.fontName.setText(((Text) drawable).getFont().getName());
+        this.fontSize.getValueFactory().setValue(((Text) drawable).getFont().getSize());
+        this.color.setValue((Color) ((Text) drawable).getPaint());
+        this.x.getValueFactory().setValue(((HorizontalText) drawable).getX());
+        this.y.getValueFactory().setValue(((HorizontalText) drawable).getY());
+        this.textAlignment.setValue(((HorizontalText) drawable).getTextAlignment());
+        this.textBaseline.setValue(((HorizontalText) drawable).getTextBaseline());
     }
 }

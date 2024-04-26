@@ -69,9 +69,9 @@ public class MainController {
         for (Drawable drawable : drawables) {
             FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", drawable.getClass().getSimpleName())));
 
+            fxmlLoader.setController(new HorizontalTextController(drawable));
             TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
             titledPanes.add(titledPane);
-            ((HorizontalTextController) fxmlLoader.getController()).initDrawable(drawable);
         }
 
         drawablePanes.getChildren().addAll(0, titledPanes);
