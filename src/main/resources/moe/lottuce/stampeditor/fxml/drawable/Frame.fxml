@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <VBox>
+        <Label text="Stroke width" />
+        <Spinner fx:id="width">
+            <valueFactory>
+                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="Infinity" amountToStepBy="1.0" />
+            </valueFactory>
+        </Spinner>
+    </VBox>
+    <VBox>
+        <Label text="Color" />
+        <ColorPicker fx:id="color" />
+    </VBox>
+</VBox>

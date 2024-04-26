@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
+<VBox fx:controller="moe.lottuce.stampeditor.controllers.CircularTextController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <fx:include source="Text.fxml"/>
+    <VBox>
+        <Label text="Diameter" />
+        <Spinner fx:id="diameter">
+            <valueFactory>
+                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="Infinity" amountToStepBy="1.0" />
+            </valueFactory>
+        </Spinner>
+    </VBox>
+    <VBox>
+        <Label text="Text start angle" />
+        <Spinner fx:id="startAngle">
+            <valueFactory>
+                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="Infinity" amountToStepBy="10.0" />
+            </valueFactory>
+        </Spinner>
+    </VBox>
+    <VBox>
+        <Label text="Text end angle" />
+        <Spinner fx:id="endAngle">
+            <valueFactory>
+                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="Infinity" amountToStepBy="10.0" />
+            </valueFactory>
+        </Spinner>
+    </VBox>
+    <VBox>
+        <Label text="Text tracking" />
+        <Spinner fx:id="tracking">
+            <valueFactory>
+                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="Infinity" amountToStepBy="1.0" />
+            </valueFactory>
+        </Spinner>
+    </VBox>
+</VBox>

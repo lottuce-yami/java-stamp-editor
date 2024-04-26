@@ -17,7 +17,7 @@
    </top>
    <left>
       <ScrollPane prefWidth="200.0" hbarPolicy="NEVER">
-         <VBox fx:id="drawables">
+         <VBox fx:id="drawablePanes">
             <Button onAction="#onDrawableAdded" text="+" prefWidth="200.0" />
          </VBox>
       </ScrollPane>

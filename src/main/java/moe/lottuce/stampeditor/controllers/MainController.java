@@ -1,7 +1,10 @@
 package moe.lottuce.stampeditor.controllers;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import moe.lottuce.stampeditor.StampEditorApplication;
 import moe.lottuce.stampeditor.drawables.CircularFrame;
 import moe.lottuce.stampeditor.drawables.CircularText;
 import moe.lottuce.stampeditor.drawables.Drawable;
@@ -21,7 +25,13 @@ import moe.lottuce.stampeditor.io.Stamp;
 import moe.lottuce.stampeditor.io.Writer;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class MainController {
     @FXML
@@ -37,27 +47,39 @@ public class MainController {
     private TextField microTextField;
 
     @FXML
-    private VBox drawables;
+    private VBox drawablePanes;
 
     private GraphicsContext gc;
 
     private Stamp stamp;
 
     @FXML
-    public void initialize() {
+    private void initialize() throws IOException {
         gc = stampCanvas.getGraphicsContext2D();
+
+        Drawable[] drawables = new Drawable[] {
+                new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2)/*,
+                new CircularFrame(5, Color.NAVY, 195),
+                new CircularFrame(2.5, Color.NAVY, 185),
+                new CircularFrame(2.5, Color.NAVY, 150),
+                new CircularText("Example text", new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)*/
+        };
+
+        List<TitledPane> titledPanes = new ArrayList<>();
+        for (Drawable drawable : drawables) {
+            FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", drawable.getClass().getSimpleName())));
+
+            TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
+            titledPanes.add(titledPane);
+            ((HorizontalTextController) fxmlLoader.getController()).initDrawable(drawable);
+        }
+
+        drawablePanes.getChildren().addAll(0, titledPanes);
+
     }
 
     @FXML
     protected void onTextChanged(ActionEvent actionEvent) {
-        stamp = new Stamp(new Drawable[] {
-                new CircularFrame(5, Color.NAVY, 195),
-                new CircularFrame(2.5, Color.NAVY, 185),
-                new CircularFrame(2.5, Color.NAVY, 150),
-                new HorizontalText(primaryTextField.getText(), new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2),
-                new CircularText(additionalTextField.getText(), new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)
-        });
-
         redrawCanvas();
     }
 
@@ -121,7 +143,20 @@ public class MainController {
     }
 
     @FXML
-    protected void onDrawableAdded() {
-        drawables.getChildren().addFirst(new TitledPane("drawable", new AnchorPane()));
+    protected void onDrawableAdded(ActionEvent actionEvent) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+        ChoiceDialog<Class<?>> choiceDialog = new ChoiceDialog<>();
+        JsonSubTypes.Type[] types = Drawable.class.getAnnotation(JsonSubTypes.class).value();
+        for (JsonSubTypes.Type type : types) {
+            choiceDialog.getItems().add(type.value());
+        }
+
+        Optional<Class<?>> result = choiceDialog.showAndWait();
+        if (result.isEmpty()) {
+            return;
+        }
+
+        Class<?> type = result.get();
+        stamp = new Stamp (new Drawable[]{(Drawable) type.getConstructor().newInstance()});
+        redrawCanvas();
     }
 }
