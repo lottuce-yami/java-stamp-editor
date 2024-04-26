@@ -58,18 +58,24 @@ public class MainController {
         gc = stampCanvas.getGraphicsContext2D();
 
         Drawable[] drawables = new Drawable[] {
-                new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2)/*,
+                new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2),
                 new CircularFrame(5, Color.NAVY, 195),
                 new CircularFrame(2.5, Color.NAVY, 185),
                 new CircularFrame(2.5, Color.NAVY, 150),
-                new CircularText("Example text", new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)*/
+                new CircularText("Example text", new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)
         };
 
         List<TitledPane> titledPanes = new ArrayList<>();
         for (Drawable drawable : drawables) {
             FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", drawable.getClass().getSimpleName())));
 
-            fxmlLoader.setController(new HorizontalTextController(drawable));
+            switch (drawable) {
+                case CircularFrame circularFrame -> fxmlLoader.setController(new CircularFrameController(drawable));
+                case CircularText circularText -> fxmlLoader.setController(new CircularTextController(drawable));
+                case HorizontalText horizontalText -> fxmlLoader.setController(new HorizontalTextController(drawable));
+                default -> throw new RuntimeException();
+            }
+
             TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
             titledPanes.add(titledPane);
         }

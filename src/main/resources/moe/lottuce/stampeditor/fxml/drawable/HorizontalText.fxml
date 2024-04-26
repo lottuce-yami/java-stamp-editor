@@ -11,7 +11,7 @@
 <?import javafx.scene.text.TextAlignment?>
 <?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <VBox>
+    <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
         <VBox>
             <Label text="Text" />
             <TextField fx:id="text" />

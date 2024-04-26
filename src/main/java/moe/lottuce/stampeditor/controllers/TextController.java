@@ -1,3 +1,4 @@
+/*
 package moe.lottuce.stampeditor.controllers;
 
 import javafx.fxml.FXML;
@@ -44,3 +45,4 @@ public abstract class TextController implements DrawableController, Initializabl
 
     }
 }
+*/

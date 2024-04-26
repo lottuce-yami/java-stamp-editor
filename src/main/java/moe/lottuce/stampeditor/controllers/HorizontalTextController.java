@@ -15,18 +15,6 @@ import java.util.ResourceBundle;
 
 public class HorizontalTextController {
     @FXML
-    private Spinner x;
-
-    @FXML
-    private Spinner y;
-
-    @FXML
-    private ChoiceBox textAlignment;
-
-    @FXML
-    private ChoiceBox textBaseline;
-
-    @FXML
     protected TextField text;
 
     @FXML
@@ -38,22 +26,33 @@ public class HorizontalTextController {
     @FXML
     protected ColorPicker color;
 
-    protected Text drawable;
+    protected HorizontalText drawable;
 
+    @FXML
+    private Spinner x;
+
+    @FXML
+    private Spinner y;
+
+    @FXML
+    private ChoiceBox textAlignment;
+
+    @FXML
+    private ChoiceBox textBaseline;
 
     public HorizontalTextController(Drawable drawable) {
-        this.drawable = (Text) drawable;
+        this.drawable = (HorizontalText) drawable;
     }
 
-
     public void initialize() {
-        this.text.setText(((Text) drawable).getText());
-        this.fontName.setText(((Text) drawable).getFont().getName());
-        this.fontSize.getValueFactory().setValue(((Text) drawable).getFont().getSize());
-        this.color.setValue((Color) ((Text) drawable).getPaint());
-        this.x.getValueFactory().setValue(((HorizontalText) drawable).getX());
-        this.y.getValueFactory().setValue(((HorizontalText) drawable).getY());
-        this.textAlignment.setValue(((HorizontalText) drawable).getTextAlignment());
-        this.textBaseline.setValue(((HorizontalText) drawable).getTextBaseline());
+        this.text.setText(drawable.getText());
+        this.fontName.setText(drawable.getFont().getName());
+        this.fontSize.getValueFactory().setValue(drawable.getFont().getSize());
+        this.color.setValue((Color) drawable.getPaint());
+
+        this.x.getValueFactory().setValue(drawable.getX());
+        this.y.getValueFactory().setValue(drawable.getY());
+        this.textAlignment.setValue(drawable.getTextAlignment());
+        this.textBaseline.setValue(drawable.getTextBaseline());
     }
 }

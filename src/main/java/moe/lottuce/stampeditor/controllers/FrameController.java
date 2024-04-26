@@ -1,3 +1,4 @@
+/*
 package moe.lottuce.stampeditor.controllers;
 
 import javafx.fxml.FXML;
@@ -8,7 +9,7 @@ import javafx.scene.paint.Color;
 import moe.lottuce.stampeditor.drawables.Drawable;
 import moe.lottuce.stampeditor.drawables.Frame;
 
-public abstract class FrameController implements DrawableController, Initializable {
+public abstract class FrameController {
     @FXML
     protected Spinner<Double> width;
 
@@ -19,7 +20,6 @@ public abstract class FrameController implements DrawableController, Initializab
 
     public void initialize() {}
 
-    @Override
     public void initDrawable(Drawable drawable) {
         if (drawable instanceof Frame) {
             this.drawable = (Frame) drawable;
@@ -29,3 +29,4 @@ public abstract class FrameController implements DrawableController, Initializab
         }
     }
 }
+*/
