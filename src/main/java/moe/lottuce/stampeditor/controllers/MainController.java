@@ -1,6 +1,8 @@
 package moe.lottuce.stampeditor.controllers;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,25 +60,36 @@ public class MainController {
         gc = stampCanvas.getGraphicsContext2D();
 
         Drawable[] drawables = new Drawable[] {
-                new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2),
+                new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2)/*,
                 new CircularFrame(5, Color.NAVY, 195),
                 new CircularFrame(2.5, Color.NAVY, 185),
                 new CircularFrame(2.5, Color.NAVY, 150),
-                new CircularText("Example text", new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)
+                new CircularText("Example text", new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)*/
         };
 
         List<TitledPane> titledPanes = new ArrayList<>();
         for (Drawable drawable : drawables) {
             FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", drawable.getClass().getSimpleName())));
 
-            switch (drawable) {
+            /*switch (drawable) {
                 case CircularFrame circularFrame -> fxmlLoader.setController(new CircularFrameController(drawable));
                 case CircularText circularText -> fxmlLoader.setController(new CircularTextController(drawable));
-                case HorizontalText horizontalText -> fxmlLoader.setController(new HorizontalTextController(drawable));
+                case HorizontalText horizontalText -> fxmlLoader.setController(new HorizontalTextController((HorizontalText) drawable));
                 default -> throw new RuntimeException();
-            }
+            }*/
+
+
 
             TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
+            HorizontalTextController controller = fxmlLoader.getController();
+            controller.drawableProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                    System.out.println("ITS WORKING!");
+                    System.out.println(number);
+                    System.out.println(t1);
+                }
+            });
             titledPanes.add(titledPane);
         }
 

@@ -10,7 +10,7 @@
 <?import javafx.geometry.VPos?>
 <?import javafx.scene.text.TextAlignment?>
 <?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<VBox fx:controller="moe.lottuce.stampeditor.controllers.HorizontalTextController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
         <VBox>
             <Label text="Text" />
@@ -28,7 +28,7 @@
         </VBox>
         <VBox>
             <Label text="Color" />
-            <ColorPicker fx:id="color" />
+            <ColorPicker fx:id="color" onAction="#onColorChanged" />
         </VBox>
     </VBox>
     <VBox>

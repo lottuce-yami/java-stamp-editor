@@ -1,5 +1,9 @@
 package moe.lottuce.stampeditor.controllers;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
@@ -14,6 +18,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HorizontalTextController {
+    private DoubleProperty drawable = new SimpleDoubleProperty();
+
     @FXML
     protected TextField text;
 
@@ -25,8 +31,6 @@ public class HorizontalTextController {
 
     @FXML
     protected ColorPicker color;
-
-    protected HorizontalText drawable;
 
     @FXML
     private Spinner x;
@@ -40,19 +44,21 @@ public class HorizontalTextController {
     @FXML
     private ChoiceBox textBaseline;
 
-    public HorizontalTextController(Drawable drawable) {
-        this.drawable = (HorizontalText) drawable;
+    public double getDrawable() {
+        return drawable.get();
     }
 
-    public void initialize() {
-        this.text.setText(drawable.getText());
-        this.fontName.setText(drawable.getFont().getName());
-        this.fontSize.getValueFactory().setValue(drawable.getFont().getSize());
-        this.color.setValue((Color) drawable.getPaint());
+    public void setDrawable(double drawable) {
+        this.drawable.set(drawable);
+    }
 
-        this.x.getValueFactory().setValue(drawable.getX());
-        this.y.getValueFactory().setValue(drawable.getY());
-        this.textAlignment.setValue(drawable.getTextAlignment());
-        this.textBaseline.setValue(drawable.getTextBaseline());
+    public DoubleProperty drawableProperty() {
+        return drawable;
+    }
+
+    @FXML
+    private void onColorChanged() {
+        System.out.println("color changed");
+        setDrawable(1.0);
     }
 }
