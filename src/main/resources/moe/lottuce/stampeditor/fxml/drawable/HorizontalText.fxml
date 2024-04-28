@@ -50,24 +50,20 @@
     <VBox>
         <Label text="Text alignment" />
         <ChoiceBox fx:id="textAlignment">
-            <FXCollections fx:factory="observableArrayList">
-                <TextAlignment fx:constant="LEFT" />
-                <TextAlignment fx:constant="CENTER" />
-                <TextAlignment fx:constant="RIGHT" />
-                <TextAlignment fx:constant="JUSTIFY" />
-            </FXCollections>
+            <TextAlignment fx:constant="LEFT" />
+            <TextAlignment fx:constant="CENTER" />
+            <TextAlignment fx:constant="RIGHT" />
+            <TextAlignment fx:constant="JUSTIFY" />
         </ChoiceBox>
     </VBox>
     <VBox>
         <Label text="Text baseline" />
         <ChoiceBox fx:id="textBaseline">
-            <FXCollections fx:factory="observableArrayList">
-                <VPos fx:constant="TOP" />
-                <VPos fx:constant="CENTER" />
-                <VPos fx:constant="BASELINE" />
-                <VPos fx:constant="BOTTOM" />
-            </FXCollections>
+            <VPos fx:constant="TOP" />
+            <VPos fx:constant="CENTER" />
+            <VPos fx:constant="BASELINE" />
+            <VPos fx:constant="BOTTOM" />
         </ChoiceBox>
     </VBox>
-    <Button fx:id="deleteButton" text="Delete" prefWidth="200.0" />
+    <Button fx:id="deleteButton" text="Delete" prefWidth="100.0" />
 </VBox>
