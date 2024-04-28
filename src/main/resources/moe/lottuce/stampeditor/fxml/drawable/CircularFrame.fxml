@@ -13,7 +13,7 @@
             <Label text="Stroke width" />
             <Spinner fx:id="width">
                 <valueFactory>
-                    <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="Infinity" amountToStepBy="1.0" />
+                    <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
                 </valueFactory>
             </Spinner>
         </VBox>
@@ -26,7 +26,7 @@
         <Label text="Diameter" />
         <Spinner fx:id="diameter">
             <valueFactory>
-                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="Infinity" amountToStepBy="10.0" />
+                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
             </valueFactory>
         </Spinner>
     </VBox>

@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.paint.Color;
-import moe.lottuce.stampeditor.drawables.CircularFrame;
-import moe.lottuce.stampeditor.drawables.Drawable;
-import moe.lottuce.stampeditor.drawables.Frame;
-import moe.lottuce.stampeditor.drawables.HorizontalText;
+import moe.lottuce.stampeditor.drawables.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,6 +18,22 @@ public class CircularFrameController extends DrawableController {
 
     @FXML
     private Spinner<Double> diameter;
+
+    @FXML
+    private void initialize() {
+        width.valueProperty().addListener((o, oldValue, newValue) -> {
+            ((CircularFrame) drawable).setWidth(newValue);
+            mainController.redrawCanvas();
+        });
+        color.valueProperty().addListener((o, oldValue, newValue) -> {
+            ((CircularFrame) drawable).setPaint(newValue);
+            mainController.redrawCanvas();
+        });
+        diameter.valueProperty().addListener((o, oldValue, newValue) -> {
+            ((CircularFrame) drawable).setDiameter(newValue);
+            mainController.redrawCanvas();
+        });
+    }
 
     public void initDrawable() {
         this.width.getValueFactory().setValue(((CircularFrame) drawable).getWidth());
