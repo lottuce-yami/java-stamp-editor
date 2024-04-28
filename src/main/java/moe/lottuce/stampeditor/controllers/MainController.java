@@ -112,6 +112,9 @@ public class MainController {
         try {
             List<Drawable> drawables = Reader.open(canvas.getScene().getWindow()).drawables();
 
+            drawablePanes.getChildren().remove(0, this.drawables.size());
+            this.drawables.clear();
+
             for (Drawable drawable : drawables) {
                 TitledPane titledPane = createTitledPane(drawable);
                 drawablePanes.getChildren().add(drawablePanes.getChildren().size() - 1, titledPane);
