@@ -40,11 +40,10 @@ public class MainController {
 
     private File saveFile;
 
-    private ResourceBundle localization;
+    private static final ResourceBundle localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
 
     @FXML
     private void initialize() throws IOException {
-        localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
         gc = canvas.getGraphicsContext2D();
 
         Drawable[] drawables = {
@@ -150,21 +149,33 @@ public class MainController {
     }
 
     @FXML
-    protected void onDrawableAdded(ActionEvent actionEvent) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-        ChoiceDialog<Class<?>> choiceDialog = new ChoiceDialog<>();
-        JsonSubTypes.Type[] types = Drawable.class.getAnnotation(JsonSubTypes.class).value();
-        for (JsonSubTypes.Type type : types) {
-            choiceDialog.getItems().add(type.value());
-        }
+    protected void onDrawableAdded(ActionEvent actionEvent) throws IOException {
+        Drawable drawable;
+        String circularFrame = localization.getString("CircularFrame");
+        String circularText = localization.getString("CircularText");
+        String horizontalText = localization.getString("HorizontalText");
 
-        Optional<Class<?>> result = choiceDialog.showAndWait();
+        ChoiceDialog<String> choiceDialog = new ChoiceDialog<>();
+        choiceDialog.getItems().addAll(circularFrame, circularText, horizontalText);
+
+        Optional<String> result = choiceDialog.showAndWait();
         if (result.isEmpty()) {
             return;
         }
 
-        Class<?> type = result.get();
+        if (result.get().equals(circularFrame)) {
+            drawable = new CircularFrame();
+        }
+        else if (result.get().equals(circularText)) {
+            drawable = new CircularText();
+        }
+        else if (result.get().equals(horizontalText)) {
+            drawable = new HorizontalText();
+        }
+        else {
+            throw new RuntimeException();
+        }
 
-        Drawable drawable = (Drawable) type.getConstructor().newInstance();
         TitledPane titledPane = createTitledPane(drawable);
         drawablePanes.getChildren().add(drawablePanes.getChildren().size() - 1, titledPane);
         drawables.put(drawable, titledPane);
