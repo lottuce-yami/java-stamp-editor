@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Writer {
-    public static void saveAs(Window window, Stamp stamp) throws IOException {
+    public static File saveAs(Window window, Stamp stamp) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Зберегти як...");
         fileChooser.getExtensionFilters().addAll(
@@ -18,9 +18,14 @@ public class Writer {
 
         File saveFile = fileChooser.showSaveDialog(window);
 
-        if (saveFile != null) {
+        save(saveFile, stamp);
+        return saveFile;
+    }
+
+    public static void save(File file, Stamp stamp) throws IOException {
+        if (file != null) {
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.writeValue(saveFile, stamp);
+            objectMapper.writeValue(file, stamp);
         }
     }
 }

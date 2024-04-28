@@ -22,22 +22,14 @@ import moe.lottuce.stampeditor.io.Reader;
 import moe.lottuce.stampeditor.io.Stamp;
 import moe.lottuce.stampeditor.io.Writer;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class MainController {
     @FXML
-    private Canvas stampCanvas;
-
-    @FXML
-    private TextField primaryTextField;
-
-    @FXML
-    private TextField additionalTextField;
-
-    @FXML
-    private TextField microTextField;
+    private Canvas canvas;
 
     @FXML
     private VBox drawablePanes;
@@ -46,12 +38,14 @@ public class MainController {
 
     private Map<Drawable, TitledPane> drawables = new HashMap<>();
 
+    private File saveFile;
+
     @FXML
     private void initialize() throws IOException {
-        gc = stampCanvas.getGraphicsContext2D();
+        gc = canvas.getGraphicsContext2D();
 
         Drawable[] drawables = {
-                new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2),
+                new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, canvas.getWidth() / 2, canvas.getHeight() / 2),
                 new CircularFrame(5, Color.NAVY, 195),
                 new CircularFrame(2.5, Color.NAVY, 185),
                 new CircularFrame(2.5, Color.NAVY, 150),
@@ -66,14 +60,9 @@ public class MainController {
     }
 
     @FXML
-    protected void onTextChanged(ActionEvent actionEvent) {
-        redrawCanvas();
-    }
-
-    @FXML
     protected void onExport(ActionEvent actionEvent) {
         try {
-            Exporter.exportAs(stampCanvas);
+            Exporter.exportAs(canvas);
         }
         catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При експорті виникла помилка: %1$s", e.getLocalizedMessage()));
@@ -84,9 +73,27 @@ public class MainController {
     }
 
     @FXML
-    protected void onSaveAs(ActionEvent actionEvent) {
+    protected void onSave() {
         try {
-            Writer.saveAs(stampCanvas.getScene().getWindow(), new Stamp(drawables.keySet().stream().toList()));
+            if (saveFile == null) {
+                onSaveAs();
+            }
+            else {
+                Writer.save(saveFile, new Stamp(drawables.keySet().stream().toList()));
+            }
+        }
+        catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При зберіганні виникла помилка: %1$s", e.getLocalizedMessage()));
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> alert.close());
+        }
+    }
+
+    @FXML
+    protected void onSaveAs() {
+        try {
+            saveFile = Writer.saveAs(canvas.getScene().getWindow(), new Stamp(drawables.keySet().stream().toList()));
         }
         catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При зберіганні виникла помилка: %1$s", e.getLocalizedMessage()));
@@ -103,7 +110,7 @@ public class MainController {
         }
 
         try {
-            List<Drawable> drawables = Reader.open(stampCanvas.getScene().getWindow()).drawables();
+            List<Drawable> drawables = Reader.open(canvas.getScene().getWindow()).drawables();
 
             for (Drawable drawable : drawables) {
                 TitledPane titledPane = createTitledPane(drawable);
@@ -122,10 +129,10 @@ public class MainController {
     }
 
     protected void redrawCanvas() {
-        gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         for (Drawable drawable : drawables.keySet()) {
-            drawable.draw(stampCanvas);
+            drawable.draw(canvas);
         }
     }
 

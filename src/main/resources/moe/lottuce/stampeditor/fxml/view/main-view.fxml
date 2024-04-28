@@ -4,13 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controllers.MainController" prefHeight="400.0" prefWidth="800.0">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controllers.MainController" prefHeight="400.0" prefWidth="600.0">
    <top>
       <MenuBar>
          <Menu text="Файл">
             <MenuItem onAction="#onOpen" text="Відкрити..." />
+            <MenuItem onAction="#onSave"  text="Зберегти" />
             <MenuItem onAction="#onSaveAs" text="Зберегти як..." />
-            <MenuItem text="Зберегти" />
             <MenuItem onAction="#onExport" text="Експорт..." />
          </Menu>
       </MenuBar>
@@ -23,18 +23,8 @@
       </ScrollPane>
    </left>
    <center>
-      <Canvas fx:id="stampCanvas" height="200.0" width="200.0" />
+      <Canvas fx:id="canvas" height="200.0" width="200.0" />
    </center>
-   <right>
-      <VBox prefWidth="200.0">
-         <Label text="Основний текст" labelFor="$primaryTextField" />
-         <TextField fx:id="primaryTextField" onAction="#onTextChanged" />
-         <Label text="Додатковий текст" labelFor="$additionalTextField" />
-         <TextField fx:id="additionalTextField" onAction="#onTextChanged" />
-         <Label text="Мікротекст" labelFor="$microTextField" />
-         <TextField fx:id="microTextField" onAction="#onTextChanged" />
-      </VBox>
-   </right>
    <bottom>
       <HBox>
          <Label text="Назва файлу" />
