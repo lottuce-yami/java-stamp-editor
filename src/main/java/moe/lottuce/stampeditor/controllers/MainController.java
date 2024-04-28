@@ -59,6 +59,8 @@ public class MainController {
             drawablePanes.getChildren().add(drawablePanes.getChildren().size() - 1, titledPane);
             this.drawables.put(drawable, titledPane);
         }
+
+        redrawCanvas();
     }
 
     @FXML

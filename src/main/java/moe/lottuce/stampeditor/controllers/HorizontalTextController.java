@@ -114,7 +114,7 @@ public class HorizontalTextController extends DrawableController {
         this.color.setValue((Color) ((HorizontalText) drawable).getPaint());
         this.x.getValueFactory().setValue(((HorizontalText) drawable).getX());
         this.y.getValueFactory().setValue(((HorizontalText) drawable).getY());
-        this.textAlignment.setValue(((HorizontalText) drawable).getTextAlignment().name());
-        this.textBaseline.setValue(((HorizontalText) drawable).getTextBaseline().name());
+        this.textAlignment.setValue(localization.getString(((HorizontalText) drawable).getTextAlignment().name()));
+        this.textBaseline.setValue(localization.getString(((HorizontalText) drawable).getTextBaseline().name()));
     }
 }
