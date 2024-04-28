@@ -10,7 +10,7 @@
 <VBox fx:controller="moe.lottuce.stampeditor.controllers.CircularFrameController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
         <VBox>
-            <Label text="Stroke width" />
+            <Label text="%width" />
             <Spinner fx:id="width" editable="true">
                 <valueFactory>
                     <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
@@ -18,17 +18,17 @@
             </Spinner>
         </VBox>
         <VBox>
-            <Label text="Color" />
+            <Label text="%color" />
             <ColorPicker fx:id="color" />
         </VBox>
     </VBox>
     <VBox>
-        <Label text="Diameter" />
+        <Label text="%diameter" />
         <Spinner fx:id="diameter" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
             </valueFactory>
         </Spinner>
     </VBox>
-    <Button fx:id="deleteButton" text="Delete" prefWidth="100.0" />
+    <Button fx:id="deleteButton" text="%remove" prefWidth="100.0" />
 </VBox>

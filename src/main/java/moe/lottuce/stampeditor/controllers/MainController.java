@@ -40,8 +40,11 @@ public class MainController {
 
     private File saveFile;
 
+    private ResourceBundle localization;
+
     @FXML
     private void initialize() throws IOException {
+        localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
         gc = canvas.getGraphicsContext2D();
 
         Drawable[] drawables = {
@@ -65,7 +68,7 @@ public class MainController {
             Exporter.exportAs(canvas);
         }
         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При експорті виникла помилка: %1$s", e.getLocalizedMessage()));
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("exportError"), e.getLocalizedMessage()));
             alert.showAndWait()
                     .filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> alert.close());
@@ -83,7 +86,7 @@ public class MainController {
             }
         }
         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При зберіганні виникла помилка: %1$s", e.getLocalizedMessage()));
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("saveError"), e.getLocalizedMessage()));
             alert.showAndWait()
                     .filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> alert.close());
@@ -96,7 +99,7 @@ public class MainController {
             saveFile = Writer.saveAs(canvas.getScene().getWindow(), new Stamp(drawables.keySet().stream().toList()));
         }
         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При зберіганні виникла помилка: %1$s", e.getLocalizedMessage()));
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("saveError"), e.getLocalizedMessage()));
             alert.showAndWait()
                     .filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> alert.close());
@@ -124,7 +127,7 @@ public class MainController {
             redrawCanvas();
         }
         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При відкритті виникла помилка: %1$s", e.getLocalizedMessage()));
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("openError"), e.getLocalizedMessage()));
             alert.showAndWait()
                     .filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> alert.close());
@@ -140,7 +143,7 @@ public class MainController {
     }
 
     protected boolean confirmProceedingWithoutSave() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Ви не зберегли зміни в поточному файлі! Продовжити?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, localization.getString("saveWarning"));
         Optional<ButtonType> response = alert.showAndWait();
 
         return response.isPresent() && response.get() == ButtonType.OK;
@@ -175,8 +178,11 @@ public class MainController {
     }
 
     protected TitledPane createTitledPane(Drawable drawable) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", drawable.getClass().getSimpleName())));
-        TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
+        String className = drawable.getClass().getSimpleName();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", className)));
+        fxmlLoader.setResources(localization);
+        TitledPane titledPane = new TitledPane(localization.getString(className), fxmlLoader.load());
         ((DrawableController) fxmlLoader.getController()).setMainController(this);
         ((DrawableController) fxmlLoader.getController()).setDrawable(drawable);
         ((DrawableController) fxmlLoader.getController()).initDrawable();

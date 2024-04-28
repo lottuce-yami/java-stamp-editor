@@ -13,13 +13,13 @@
 <VBox fx:controller="moe.lottuce.stampeditor.controllers.HorizontalTextController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
         <VBox>
-            <Label text="Text" />
+            <Label text="%text" />
             <TextField fx:id="text" />
         </VBox>
         <VBox>
-            <Label text="Font name" />
+            <Label text="%fontName" />
             <TextField fx:id="fontName" />
-            <Label text="Font size" />
+            <Label text="%fontSize" />
             <Spinner fx:id="fontSize" editable="true">
                 <valueFactory>
                     <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
@@ -27,12 +27,12 @@
             </Spinner>
         </VBox>
         <VBox>
-            <Label text="Color" />
+            <Label text="%color" />
             <ColorPicker fx:id="color" />
         </VBox>
     </VBox>
     <VBox>
-        <Label text="X position" />
+        <Label text="%x" />
         <Spinner fx:id="x" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
@@ -40,7 +40,7 @@
         </Spinner>
     </VBox>
     <VBox>
-        <Label text="Y position" />
+        <Label text="%y" />
         <Spinner fx:id="y" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
@@ -48,7 +48,7 @@
         </Spinner>
     </VBox>
     <VBox>
-        <Label text="Text alignment" />
+        <Label text="%textAlignment" />
         <ChoiceBox fx:id="textAlignment">
             <TextAlignment fx:constant="LEFT" />
             <TextAlignment fx:constant="CENTER" />
@@ -57,7 +57,7 @@
         </ChoiceBox>
     </VBox>
     <VBox>
-        <Label text="Text baseline" />
+        <Label text="%textBaseline" />
         <ChoiceBox fx:id="textBaseline">
             <VPos fx:constant="TOP" />
             <VPos fx:constant="CENTER" />
@@ -65,5 +65,5 @@
             <VPos fx:constant="BOTTOM" />
         </ChoiceBox>
     </VBox>
-    <Button fx:id="deleteButton" text="Delete" prefWidth="100.0" />
+    <Button fx:id="deleteButton" text="%remove" prefWidth="100.0" />
 </VBox>

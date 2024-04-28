@@ -6,14 +6,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class StampEditorApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Locale.setDefault(Locale.forLanguageTag("uk"));
+        ResourceBundle localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
+        stage.setTitle(localization.getString("StampEditor"));
+
         FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource("fxml/view/main-view.fxml"));
+        fxmlLoader.setResources(localization);
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setTitle("Редактор штампів та печаток");
         stage.setScene(scene);
+
         stage.show();
     }
 

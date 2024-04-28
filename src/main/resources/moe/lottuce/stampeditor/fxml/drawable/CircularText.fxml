@@ -10,13 +10,13 @@
 <VBox fx:controller="moe.lottuce.stampeditor.controllers.CircularTextController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
         <VBox>
-            <Label text="Text" />
+            <Label text="%text" />
             <TextField fx:id="text" />
         </VBox>
         <VBox>
-            <Label text="Font name" />
+            <Label text="%fontName" />
             <TextField fx:id="fontName" />
-            <Label text="Font size" />
+            <Label text="%fontSize" />
             <Spinner fx:id="fontSize" editable="true">
                 <valueFactory>
                     <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
@@ -24,12 +24,12 @@
             </Spinner>
         </VBox>
         <VBox>
-            <Label text="Color" />
+            <Label text="%color" />
             <ColorPicker fx:id="color" />
         </VBox>
     </VBox>
     <VBox>
-        <Label text="Diameter" />
+        <Label text="%diameter" />
         <Spinner fx:id="diameter" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
@@ -37,7 +37,7 @@
         </Spinner>
     </VBox>
     <VBox>
-        <Label text="Text start angle" />
+        <Label text="%startAngle" />
         <Spinner fx:id="startAngle" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
@@ -45,7 +45,7 @@
         </Spinner>
     </VBox>
     <VBox>
-        <Label text="Text end angle" />
+        <Label text="%endAngle" />
         <Spinner fx:id="endAngle" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
@@ -53,12 +53,12 @@
         </Spinner>
     </VBox>
     <VBox>
-        <Label text="Text tracking" />
+        <Label text="%tracking" />
         <Spinner fx:id="tracking" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
             </valueFactory>
         </Spinner>
     </VBox>
-    <Button fx:id="deleteButton" text="Delete" prefWidth="100.0" />
+    <Button fx:id="deleteButton" text="%remove" prefWidth="100.0" />
 </VBox>

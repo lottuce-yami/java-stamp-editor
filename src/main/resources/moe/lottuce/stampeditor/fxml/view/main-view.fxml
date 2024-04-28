@@ -8,23 +8,23 @@
 <BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controllers.MainController" prefHeight="400.0" prefWidth="600.0">
    <top>
       <MenuBar>
-         <Menu text="Файл">
-            <MenuItem onAction="#onOpen" text="Відкрити...">
+         <Menu text="%file">
+            <MenuItem onAction="#onOpen" text="%open">
                <accelerator>
                   <KeyCodeCombination code="O" shortcut="DOWN" shift="UP" control="UP" alt="UP" meta="UP" />
                </accelerator>
             </MenuItem>
-            <MenuItem onAction="#onSave"  text="Зберегти">
+            <MenuItem onAction="#onSave"  text="%save">
                <accelerator>
                   <KeyCodeCombination code="S" shortcut="DOWN" shift="UP" control="UP" alt="UP" meta="UP" />
                </accelerator>
             </MenuItem>
-            <MenuItem onAction="#onSaveAs" text="Зберегти як...">
+            <MenuItem onAction="#onSaveAs" text="%saveAs">
                <accelerator>
                   <KeyCodeCombination code="S" shortcut="DOWN" shift="DOWN" control="UP" alt="UP" meta="UP" />
                </accelerator>
             </MenuItem>
-            <MenuItem onAction="#onExport" text="Експорт...">
+            <MenuItem onAction="#onExport" text="%export">
                <accelerator>
                   <KeyCodeCombination code="E" shortcut="DOWN" shift="UP" control="UP" alt="UP" meta="UP" />
                </accelerator>
