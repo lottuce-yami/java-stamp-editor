@@ -7,6 +7,8 @@ import moe.lottuce.stampeditor.drawables.Drawable;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class Reader {
     public static Stamp open(Window window) throws IOException {
@@ -23,6 +25,6 @@ public class Reader {
             return objectMapper.readValue(openFile, Stamp.class);
         }
 
-        return new Stamp(new Drawable[]{});
+        return new Stamp(Collections.emptyList());
     }
 }

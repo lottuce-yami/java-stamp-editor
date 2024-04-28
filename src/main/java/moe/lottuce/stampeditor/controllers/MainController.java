@@ -46,19 +46,19 @@ public class MainController {
 
     private GraphicsContext gc;
 
-    private Drawable[] drawables;
+    private List<Drawable> drawables = new ArrayList<>();
 
     @FXML
     private void initialize() throws IOException {
         gc = stampCanvas.getGraphicsContext2D();
 
-        this.drawables = new Drawable[] {
+        this.drawables.addAll(List.of(
                 new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2),
                 new CircularFrame(5, Color.NAVY, 195),
                 new CircularFrame(2.5, Color.NAVY, 185),
                 new CircularFrame(2.5, Color.NAVY, 150),
                 new CircularText("Example text", new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)
-        };
+        ));
 
         List<TitledPane> titledPanes = new ArrayList<>();
         for (Drawable drawable : drawables) {
@@ -140,7 +140,7 @@ public class MainController {
     }
 
     @FXML
-    protected void onDrawableAdded(ActionEvent actionEvent) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    protected void onDrawableAdded(ActionEvent actionEvent) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
         ChoiceDialog<Class<?>> choiceDialog = new ChoiceDialog<>();
         JsonSubTypes.Type[] types = Drawable.class.getAnnotation(JsonSubTypes.class).value();
         for (JsonSubTypes.Type type : types) {
@@ -153,7 +153,16 @@ public class MainController {
         }
 
         Class<?> type = result.get();
-        drawables = new Drawable[]{(Drawable) type.getConstructor().newInstance()};
+
+        Drawable drawable = (Drawable) type.getConstructor().newInstance();
+        drawables.add(drawable);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", type.getSimpleName())));
+        TitledPane titledPane = new TitledPane(type.getSimpleName(), fxmlLoader.load());
+        ((DrawableController) fxmlLoader.getController()).setMainController(this);
+        ((DrawableController) fxmlLoader.getController()).setDrawable(drawable);
+        ((DrawableController) fxmlLoader.getController()).initDrawable();
+        drawablePanes.getChildren().add(drawablePanes.getChildren().size() - 1, titledPane);
         redrawCanvas();
     }
 }

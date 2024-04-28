@@ -2,6 +2,8 @@ package moe.lottuce.stampeditor.io;
 
 import moe.lottuce.stampeditor.drawables.Drawable;
 
-public record Stamp(Drawable[] drawables) {
+import java.util.List;
+
+public record Stamp(List<Drawable> drawables) {
 
 }
