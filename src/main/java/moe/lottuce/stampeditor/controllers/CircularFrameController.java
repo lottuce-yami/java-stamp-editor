@@ -7,30 +7,24 @@ import javafx.scene.paint.Color;
 import moe.lottuce.stampeditor.drawables.CircularFrame;
 import moe.lottuce.stampeditor.drawables.Drawable;
 import moe.lottuce.stampeditor.drawables.Frame;
+import moe.lottuce.stampeditor.drawables.HorizontalText;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CircularFrameController {
+public class CircularFrameController extends DrawableController {
     @FXML
     protected Spinner<Double> width;
 
     @FXML
     protected ColorPicker color;
 
-    protected CircularFrame drawable;
-
     @FXML
-    private Spinner diameter;
+    private Spinner<Double> diameter;
 
-    public CircularFrameController(Drawable drawable) {
-        this.drawable = (CircularFrame) drawable;
-    }
-
-    public void initialize() {
-        this.width.getValueFactory().setValue(((Frame) drawable).getWidth());
-        this.color.setValue((Color) ((Frame) drawable).getPaint());
-
+    public void initDrawable() {
+        this.width.getValueFactory().setValue(((CircularFrame) drawable).getWidth());
+        this.color.setValue((Color) ((CircularFrame) drawable).getPaint());
         this.diameter.getValueFactory().setValue(((CircularFrame) drawable).getDiameter());
     }
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<VBox fx:controller="moe.lottuce.stampeditor.controllers.CircularTextController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
         <VBox>
             <Label text="Text" />

@@ -5,6 +5,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import moe.lottuce.stampeditor.drawables.CircularFrame;
 import moe.lottuce.stampeditor.drawables.CircularText;
 import moe.lottuce.stampeditor.drawables.Drawable;
 import moe.lottuce.stampeditor.drawables.HorizontalText;
@@ -12,7 +13,7 @@ import moe.lottuce.stampeditor.drawables.HorizontalText;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CircularTextController {
+public class CircularTextController extends DrawableController {
     @FXML
     protected TextField text;
 
@@ -25,30 +26,23 @@ public class CircularTextController {
     @FXML
     protected ColorPicker color;
 
-    protected CircularText drawable;
+    @FXML
+    private Spinner<Double> diameter;
 
     @FXML
-    private Spinner diameter;
+    private Spinner<Double> startAngle;
 
     @FXML
-    private Spinner startAngle;
+    private Spinner<Double> endAngle;
 
     @FXML
-    private Spinner endAngle;
+    private Spinner<Double> tracking;
 
-    @FXML
-    private Spinner tracking;
-
-    public CircularTextController(Drawable drawable) {
-        this.drawable = (CircularText) drawable;
-    }
-
-    public void initialize() {
-        this.text.setText(drawable.getText());
-        this.fontName.setText(drawable.getFont().getName());
-        this.fontSize.getValueFactory().setValue(drawable.getFont().getSize());
-        this.color.setValue((Color) drawable.getPaint());
-
+    public void initDrawable() {
+        this.text.setText(((CircularText) drawable).getText());
+        this.fontName.setText(((CircularText) drawable).getFont().getName());
+        this.fontSize.getValueFactory().setValue(((CircularText) drawable).getFont().getSize());
+        this.color.setValue((Color) ((CircularText) drawable).getPaint());
         this.diameter.getValueFactory().setValue(((CircularText) drawable).getDiameter());
         this.startAngle.getValueFactory().setValue(((CircularText) drawable).getStartAngle());
         this.endAngle.getValueFactory().setValue(((CircularText) drawable).getEndAngle());
