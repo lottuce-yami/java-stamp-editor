@@ -74,6 +74,7 @@ public class MainController {
             TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
             ((HorizontalTextController) fxmlLoader.getController()).setMainController(this);
             ((HorizontalTextController) fxmlLoader.getController()).setDrawable(drawable);
+            ((HorizontalTextController) fxmlLoader.getController()).initDrawable();
             titledPanes.add(titledPane);
         }
 

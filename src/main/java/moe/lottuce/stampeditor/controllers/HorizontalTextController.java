@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class HorizontalTextController {
     private MainController mainController;
 
-    private Drawable drawable;
+    private HorizontalText drawable;
 
     @FXML
     protected TextField text;
@@ -59,7 +59,18 @@ public class HorizontalTextController {
     }
 
     public void setDrawable(Drawable drawable) {
-        this.drawable = drawable;
+        this.drawable = (HorizontalText) drawable;
+    }
+
+    public void initDrawable() {
+        this.text.setText(drawable.getText());
+        this.fontName.setText(drawable.getFont().getName());
+        this.fontSize.getValueFactory().setValue(drawable.getFont().getSize());
+        this.color.setValue((Color) drawable.getPaint());
+        this.x.getValueFactory().setValue(drawable.getX());
+        this.y.getValueFactory().setValue(drawable.getY());
+        this.textAlignment.setValue(drawable.getTextAlignment());
+        this.textBaseline.setValue(drawable.getTextBaseline());
     }
 
     @FXML
