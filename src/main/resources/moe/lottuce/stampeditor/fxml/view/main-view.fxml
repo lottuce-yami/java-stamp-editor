@@ -4,14 +4,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.input.KeyCodeCombination?>
 <BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controllers.MainController" prefHeight="400.0" prefWidth="600.0">
    <top>
       <MenuBar>
          <Menu text="Файл">
-            <MenuItem onAction="#onOpen" text="Відкрити..." />
-            <MenuItem onAction="#onSave"  text="Зберегти" />
-            <MenuItem onAction="#onSaveAs" text="Зберегти як..." />
-            <MenuItem onAction="#onExport" text="Експорт..." />
+            <MenuItem onAction="#onOpen" text="Відкрити...">
+               <accelerator>
+                  <KeyCodeCombination code="O" shortcut="DOWN" shift="UP" control="UP" alt="UP" meta="UP" />
+               </accelerator>
+            </MenuItem>
+            <MenuItem onAction="#onSave"  text="Зберегти">
+               <accelerator>
+                  <KeyCodeCombination code="S" shortcut="DOWN" shift="UP" control="UP" alt="UP" meta="UP" />
+               </accelerator>
+            </MenuItem>
+            <MenuItem onAction="#onSaveAs" text="Зберегти як...">
+               <accelerator>
+                  <KeyCodeCombination code="S" shortcut="DOWN" shift="DOWN" control="UP" alt="UP" meta="UP" />
+               </accelerator>
+            </MenuItem>
+            <MenuItem onAction="#onExport" text="Експорт...">
+               <accelerator>
+                  <KeyCodeCombination code="E" shortcut="DOWN" shift="UP" control="UP" alt="UP" meta="UP" />
+               </accelerator>
+            </MenuItem>
          </Menu>
       </MenuBar>
    </top>
