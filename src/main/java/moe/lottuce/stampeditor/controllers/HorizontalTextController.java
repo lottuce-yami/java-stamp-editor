@@ -8,10 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.VPos;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -48,6 +45,9 @@ public class HorizontalTextController extends DrawableController {
     private ChoiceBox<VPos> textBaseline;
 
     @FXML
+    private Button deleteButton;
+
+    @FXML
     private void initialize() {
         text.textProperty().addListener((o, oldValue, newValue) -> {
             ((HorizontalText) drawable).setText(newValue);
@@ -80,6 +80,9 @@ public class HorizontalTextController extends DrawableController {
         textBaseline.valueProperty().addListener((o, oldValue, newValue) -> {
             ((HorizontalText) drawable).setTextBaseline(newValue);
             mainController.redrawCanvas();
+        });
+        deleteButton.setOnAction((actionEvent) -> {
+            mainController.removeDrawable(drawable);
         });
     }
 

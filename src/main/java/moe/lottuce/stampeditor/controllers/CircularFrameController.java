@@ -1,6 +1,7 @@
 package moe.lottuce.stampeditor.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.paint.Color;
@@ -20,6 +21,9 @@ public class CircularFrameController extends DrawableController {
     private Spinner<Double> diameter;
 
     @FXML
+    private Button deleteButton;
+
+    @FXML
     private void initialize() {
         width.valueProperty().addListener((o, oldValue, newValue) -> {
             ((CircularFrame) drawable).setWidth(newValue);
@@ -32,6 +36,9 @@ public class CircularFrameController extends DrawableController {
         diameter.valueProperty().addListener((o, oldValue, newValue) -> {
             ((CircularFrame) drawable).setDiameter(newValue);
             mainController.redrawCanvas();
+        });
+        deleteButton.setOnAction((actionEvent) -> {
+            mainController.removeDrawable(drawable);
         });
     }
 

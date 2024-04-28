@@ -24,9 +24,7 @@ import moe.lottuce.stampeditor.io.Writer;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class MainController {
     @FXML
@@ -46,33 +44,25 @@ public class MainController {
 
     private GraphicsContext gc;
 
-    private List<Drawable> drawables = new ArrayList<>();
+    private Map<Drawable, TitledPane> drawables = new HashMap<>();
 
     @FXML
     private void initialize() throws IOException {
         gc = stampCanvas.getGraphicsContext2D();
 
-        this.drawables.addAll(List.of(
+        Drawable[] drawables = {
                 new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2),
                 new CircularFrame(5, Color.NAVY, 195),
                 new CircularFrame(2.5, Color.NAVY, 185),
                 new CircularFrame(2.5, Color.NAVY, 150),
                 new CircularText("Example text", new Font("Times New Roman", 12), Color.NAVY, 165, 185, 535, 5)
-        ));
+        };
 
-        List<TitledPane> titledPanes = new ArrayList<>();
         for (Drawable drawable : drawables) {
-            FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", drawable.getClass().getSimpleName())));
-
-            TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
-            ((DrawableController) fxmlLoader.getController()).setMainController(this);
-            ((DrawableController) fxmlLoader.getController()).setDrawable(drawable);
-            ((DrawableController) fxmlLoader.getController()).initDrawable();
-            titledPanes.add(titledPane);
+            TitledPane titledPane = createTitledPane(drawable);
+            drawablePanes.getChildren().add(drawablePanes.getChildren().size() - 1, titledPane);
+            this.drawables.put(drawable, titledPane);
         }
-
-        drawablePanes.getChildren().addAll(0, titledPanes);
-
     }
 
     @FXML
@@ -96,7 +86,7 @@ public class MainController {
     @FXML
     protected void onSaveAs(ActionEvent actionEvent) {
         try {
-            Writer.saveAs(stampCanvas.getScene().getWindow(), new Stamp(drawables));
+            Writer.saveAs(stampCanvas.getScene().getWindow(), new Stamp(drawables.keySet().stream().toList()));
         }
         catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При зберіганні виникла помилка: %1$s", e.getLocalizedMessage()));
@@ -113,7 +103,14 @@ public class MainController {
         }
 
         try {
-            drawables = Reader.open(stampCanvas.getScene().getWindow()).drawables();
+            List<Drawable> drawables = Reader.open(stampCanvas.getScene().getWindow()).drawables();
+
+            for (Drawable drawable : drawables) {
+                TitledPane titledPane = createTitledPane(drawable);
+                drawablePanes.getChildren().add(drawablePanes.getChildren().size() - 1, titledPane);
+                this.drawables.put(drawable, titledPane);
+            }
+
             redrawCanvas();
         }
         catch (IOException e) {
@@ -127,7 +124,7 @@ public class MainController {
     protected void redrawCanvas() {
         gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
 
-        for (Drawable drawable : drawables) {
+        for (Drawable drawable : drawables.keySet()) {
             drawable.draw(stampCanvas);
         }
     }
@@ -155,14 +152,25 @@ public class MainController {
         Class<?> type = result.get();
 
         Drawable drawable = (Drawable) type.getConstructor().newInstance();
-        drawables.add(drawable);
+        TitledPane titledPane = createTitledPane(drawable);
+        drawablePanes.getChildren().add(drawablePanes.getChildren().size() - 1, titledPane);
+        drawables.put(drawable, titledPane);
+        redrawCanvas();
+    }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", type.getSimpleName())));
-        TitledPane titledPane = new TitledPane(type.getSimpleName(), fxmlLoader.load());
+    protected void removeDrawable(Drawable drawable) {
+        drawablePanes.getChildren().remove(drawables.get(drawable));
+        drawables.remove(drawable);
+        redrawCanvas();
+    }
+
+    protected TitledPane createTitledPane(Drawable drawable) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", drawable.getClass().getSimpleName())));
+        TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
         ((DrawableController) fxmlLoader.getController()).setMainController(this);
         ((DrawableController) fxmlLoader.getController()).setDrawable(drawable);
         ((DrawableController) fxmlLoader.getController()).initDrawable();
-        drawablePanes.getChildren().add(drawablePanes.getChildren().size() - 1, titledPane);
-        redrawCanvas();
+
+        return titledPane;
     }
 }

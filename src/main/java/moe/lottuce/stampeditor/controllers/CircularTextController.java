@@ -1,6 +1,7 @@
 package moe.lottuce.stampeditor.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -40,6 +41,9 @@ public class CircularTextController extends DrawableController {
     private Spinner<Double> tracking;
 
     @FXML
+    private Button deleteButton;
+
+    @FXML
     private void initialize() {
         text.textProperty().addListener((o, oldValue, newValue) -> {
             ((CircularText) drawable).setText(newValue);
@@ -72,6 +76,9 @@ public class CircularTextController extends DrawableController {
         tracking.valueProperty().addListener((o, oldValue, newValue) -> {
             ((CircularText) drawable).setTracking(newValue);
             mainController.redrawCanvas();
+        });
+        deleteButton.setOnAction((actionEvent) -> {
+            mainController.removeDrawable(drawable);
         });
     }
 
