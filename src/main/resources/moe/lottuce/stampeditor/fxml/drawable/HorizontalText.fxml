@@ -50,19 +50,19 @@
     <VBox>
         <Label text="%textAlignment" />
         <ChoiceBox fx:id="textAlignment">
-            <TextAlignment fx:constant="LEFT" />
+            <!--<TextAlignment fx:constant="LEFT" />
             <TextAlignment fx:constant="CENTER" />
             <TextAlignment fx:constant="RIGHT" />
-            <TextAlignment fx:constant="JUSTIFY" />
+            <TextAlignment fx:constant="JUSTIFY" />-->
         </ChoiceBox>
     </VBox>
     <VBox>
         <Label text="%textBaseline" />
         <ChoiceBox fx:id="textBaseline">
-            <VPos fx:constant="TOP" />
+            <!--<VPos fx:constant="TOP" />
             <VPos fx:constant="CENTER" />
             <VPos fx:constant="BASELINE" />
-            <VPos fx:constant="BOTTOM" />
+            <VPos fx:constant="BOTTOM" />-->
         </ChoiceBox>
     </VBox>
     <Button fx:id="deleteButton" text="%remove" prefWidth="100.0" />

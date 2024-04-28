@@ -17,6 +17,8 @@ import moe.lottuce.stampeditor.drawables.HorizontalText;
 import moe.lottuce.stampeditor.drawables.Text;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class HorizontalTextController extends DrawableController {
@@ -39,16 +41,34 @@ public class HorizontalTextController extends DrawableController {
     private Spinner<Double> y;
 
     @FXML
-    private ChoiceBox<TextAlignment> textAlignment;
+    private ChoiceBox<String> textAlignment;
 
     @FXML
-    private ChoiceBox<VPos> textBaseline;
+    private ChoiceBox<String> textBaseline;
 
     @FXML
     private Button deleteButton;
 
+    private static final ResourceBundle localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
+
     @FXML
     private void initialize() {
+        Map<String, TextAlignment> alignmentMap = Map.of(
+                localization.getString(TextAlignment.LEFT.name()), TextAlignment.LEFT,
+                localization.getString(TextAlignment.CENTER.name()), TextAlignment.CENTER,
+                localization.getString(TextAlignment.RIGHT.name()), TextAlignment.RIGHT,
+                localization.getString(TextAlignment.JUSTIFY.name()), TextAlignment.JUSTIFY
+        );
+        Map<String, VPos> baselineMap = Map.of(
+                localization.getString(VPos.TOP.name()), VPos.TOP,
+                localization.getString(VPos.CENTER.name()), VPos.CENTER,
+                localization.getString(VPos.BASELINE.name()), VPos.BASELINE,
+                localization.getString(VPos.BOTTOM.name()), VPos.BOTTOM
+        );
+
+        textBaseline.getItems().addAll(baselineMap.keySet());
+        textAlignment.getItems().addAll(alignmentMap.keySet());
+
         text.textProperty().addListener((o, oldValue, newValue) -> {
             ((HorizontalText) drawable).setText(newValue);
             mainController.redrawCanvas();
@@ -74,11 +94,11 @@ public class HorizontalTextController extends DrawableController {
             mainController.redrawCanvas();
         });
         textAlignment.valueProperty().addListener((o, oldValue, newValue) -> {
-            ((HorizontalText) drawable).setTextAlignment(newValue);
+            ((HorizontalText) drawable).setTextAlignment(alignmentMap.get(newValue));
             mainController.redrawCanvas();
         });
         textBaseline.valueProperty().addListener((o, oldValue, newValue) -> {
-            ((HorizontalText) drawable).setTextBaseline(newValue);
+            ((HorizontalText) drawable).setTextBaseline(baselineMap.get(newValue));
             mainController.redrawCanvas();
         });
         deleteButton.setOnAction((actionEvent) -> {
@@ -94,7 +114,7 @@ public class HorizontalTextController extends DrawableController {
         this.color.setValue((Color) ((HorizontalText) drawable).getPaint());
         this.x.getValueFactory().setValue(((HorizontalText) drawable).getX());
         this.y.getValueFactory().setValue(((HorizontalText) drawable).getY());
-        this.textAlignment.setValue(((HorizontalText) drawable).getTextAlignment());
-        this.textBaseline.setValue(((HorizontalText) drawable).getTextBaseline());
+        this.textAlignment.setValue(((HorizontalText) drawable).getTextAlignment().name());
+        this.textBaseline.setValue(((HorizontalText) drawable).getTextBaseline().name());
     }
 }
