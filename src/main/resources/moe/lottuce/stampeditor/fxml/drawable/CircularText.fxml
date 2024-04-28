@@ -17,7 +17,7 @@
             <Label text="Font name" />
             <TextField fx:id="fontName" />
             <Label text="Font size" />
-            <Spinner fx:id="fontSize">
+            <Spinner fx:id="fontSize" editable="true">
                 <valueFactory>
                     <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
                 </valueFactory>
@@ -30,7 +30,7 @@
     </VBox>
     <VBox>
         <Label text="Diameter" />
-        <Spinner fx:id="diameter">
+        <Spinner fx:id="diameter" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
             </valueFactory>
@@ -38,7 +38,7 @@
     </VBox>
     <VBox>
         <Label text="Text start angle" />
-        <Spinner fx:id="startAngle">
+        <Spinner fx:id="startAngle" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
             </valueFactory>
@@ -46,7 +46,7 @@
     </VBox>
     <VBox>
         <Label text="Text end angle" />
-        <Spinner fx:id="endAngle">
+        <Spinner fx:id="endAngle" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
             </valueFactory>
@@ -54,11 +54,11 @@
     </VBox>
     <VBox>
         <Label text="Text tracking" />
-        <Spinner fx:id="tracking">
+        <Spinner fx:id="tracking" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
             </valueFactory>
         </Spinner>
     </VBox>
-    <Button fx:id="deleteButton" text="Delete" prefWidth="200.0" />
+    <Button fx:id="deleteButton" text="Delete" prefWidth="100.0" />
 </VBox>

@@ -20,7 +20,7 @@
             <Label text="Font name" />
             <TextField fx:id="fontName" />
             <Label text="Font size" />
-            <Spinner fx:id="fontSize">
+            <Spinner fx:id="fontSize" editable="true">
                 <valueFactory>
                     <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
                 </valueFactory>
@@ -33,7 +33,7 @@
     </VBox>
     <VBox>
         <Label text="X position" />
-        <Spinner fx:id="x">
+        <Spinner fx:id="x" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
             </valueFactory>
@@ -41,7 +41,7 @@
     </VBox>
     <VBox>
         <Label text="Y position" />
-        <Spinner fx:id="y">
+        <Spinner fx:id="y" editable="true">
             <valueFactory>
                 <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
             </valueFactory>
