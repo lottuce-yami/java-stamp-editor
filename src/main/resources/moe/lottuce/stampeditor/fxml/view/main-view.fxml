@@ -23,7 +23,7 @@
       </ScrollPane>
    </left>
    <center>
-      <Canvas fx:id="canvas" height="200.0" width="200.0" />
+      <Canvas fx:id="canvas" height="300.0" width="300.0" />
    </center>
    <bottom>
       <HBox>
