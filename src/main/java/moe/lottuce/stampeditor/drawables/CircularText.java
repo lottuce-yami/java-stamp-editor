@@ -53,6 +53,10 @@ public final class CircularText extends Text {
 
     public CircularText() {
         super();
+        diameter = 100;
+        startAngle = 0;
+        endAngle = 360;
+        tracking = 1;
     }
 
     public CircularText(String text, Font font, Paint paint, double diameter, double startAngle, double endAngle, double tracking) {

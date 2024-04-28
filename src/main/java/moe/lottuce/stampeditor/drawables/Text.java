@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import moe.lottuce.stampeditor.io.FontDeserializer;
@@ -46,7 +47,9 @@ public abstract class Text implements Drawable {
     }
 
     public Text() {
-
+        text = "Example text";
+        font = Font.getDefault();
+        paint = Color.BLACK;
     }
 
     public Text(String text, Font font, Paint paint) {

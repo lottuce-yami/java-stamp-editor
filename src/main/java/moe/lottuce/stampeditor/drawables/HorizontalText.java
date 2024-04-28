@@ -51,6 +51,10 @@ public final class HorizontalText extends Text {
 
     public HorizontalText() {
         super();
+        x = 100;
+        y = 100;
+        textAlignment = TextAlignment.LEFT;
+        textBaseline = VPos.BASELINE;
     }
 
     public HorizontalText(String text, Font font, Paint paint, TextAlignment textAlignment, VPos textBaseline, double x, double y) {

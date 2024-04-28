@@ -18,6 +18,7 @@ public final class CircularFrame extends Frame {
 
     public CircularFrame() {
         super();
+        diameter = 10;
     }
 
     public CircularFrame(double width, Paint paint, double diameter) {
