@@ -18,7 +18,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HorizontalTextController {
-    private DoubleProperty drawable = new SimpleDoubleProperty();
+    private MainController mainController;
+
+    private Drawable drawable;
 
     @FXML
     protected TextField text;
@@ -44,21 +46,25 @@ public class HorizontalTextController {
     @FXML
     private ChoiceBox textBaseline;
 
-    public double getDrawable() {
-        return drawable.get();
+    public MainController getMainController() {
+        return mainController;
     }
 
-    public void setDrawable(double drawable) {
-        this.drawable.set(drawable);
+    public void setMainController(MainController controller) {
+        this.mainController = controller;
     }
 
-    public DoubleProperty drawableProperty() {
+    public Drawable getDrawable() {
         return drawable;
+    }
+
+    public void setDrawable(Drawable drawable) {
+        this.drawable = drawable;
     }
 
     @FXML
     private void onColorChanged() {
-        System.out.println("color changed");
-        setDrawable(1.0);
+        ((HorizontalText) drawable).setPaint(color.getValue());
+        mainController.redrawCanvas();
     }
 }

@@ -1,24 +1,18 @@
 package moe.lottuce.stampeditor.controllers;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import moe.lottuce.stampeditor.StampEditorApplication;
-import moe.lottuce.stampeditor.drawables.CircularFrame;
-import moe.lottuce.stampeditor.drawables.CircularText;
 import moe.lottuce.stampeditor.drawables.Drawable;
 import moe.lottuce.stampeditor.drawables.HorizontalText;
 import moe.lottuce.stampeditor.io.Exporter;
@@ -27,13 +21,10 @@ import moe.lottuce.stampeditor.io.Stamp;
 import moe.lottuce.stampeditor.io.Writer;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class MainController {
     @FXML
@@ -53,13 +44,13 @@ public class MainController {
 
     private GraphicsContext gc;
 
-    private Stamp stamp;
+    private Drawable[] drawables;
 
     @FXML
     private void initialize() throws IOException {
         gc = stampCanvas.getGraphicsContext2D();
 
-        Drawable[] drawables = new Drawable[] {
+        this.drawables = new Drawable[] {
                 new HorizontalText("Example text", new Font("Times New Roman", 16), Color.NAVY, TextAlignment.CENTER, VPos.CENTER, stampCanvas.getWidth() / 2, stampCanvas.getHeight() / 2)/*,
                 new CircularFrame(5, Color.NAVY, 195),
                 new CircularFrame(2.5, Color.NAVY, 185),
@@ -81,15 +72,8 @@ public class MainController {
 
 
             TitledPane titledPane = new TitledPane(drawable.getClass().getSimpleName(), fxmlLoader.load());
-            HorizontalTextController controller = fxmlLoader.getController();
-            controller.drawableProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                    System.out.println("ITS WORKING!");
-                    System.out.println(number);
-                    System.out.println(t1);
-                }
-            });
+            ((HorizontalTextController) fxmlLoader.getController()).setMainController(this);
+            ((HorizontalTextController) fxmlLoader.getController()).setDrawable(drawable);
             titledPanes.add(titledPane);
         }
 
@@ -118,7 +102,7 @@ public class MainController {
     @FXML
     protected void onSaveAs(ActionEvent actionEvent) {
         try {
-            Writer.saveAs(stampCanvas.getScene().getWindow(), stamp);
+            Writer.saveAs(stampCanvas.getScene().getWindow(), new Stamp(drawables));
         }
         catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, String.format("При зберіганні виникла помилка: %1$s", e.getLocalizedMessage()));
@@ -135,7 +119,7 @@ public class MainController {
         }
 
         try {
-            stamp = Reader.open(stampCanvas.getScene().getWindow());
+            drawables = Reader.open(stampCanvas.getScene().getWindow()).drawables();
             redrawCanvas();
         }
         catch (IOException e) {
@@ -149,7 +133,7 @@ public class MainController {
     protected void redrawCanvas() {
         gc.clearRect(0, 0, stampCanvas.getWidth(), stampCanvas.getHeight());
 
-        for (Drawable drawable : stamp.drawables()) {
+        for (Drawable drawable : drawables) {
             drawable.draw(stampCanvas);
         }
     }
@@ -175,7 +159,7 @@ public class MainController {
         }
 
         Class<?> type = result.get();
-        stamp = new Stamp (new Drawable[]{(Drawable) type.getConstructor().newInstance()});
+        drawables = new Drawable[]{(Drawable) type.getConstructor().newInstance()};
         redrawCanvas();
     }
 }
