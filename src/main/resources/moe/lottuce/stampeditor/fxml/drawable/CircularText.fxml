@@ -57,5 +57,5 @@
             </valueFactory>
         </Spinner>
     </VBox>
-    <Button fx:id="deleteButton" text="%remove" prefWidth="100" />
+    <Button fx:id="removeButton" text="%remove" prefWidth="100" />
 </VBox>

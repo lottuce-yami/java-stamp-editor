@@ -7,6 +7,8 @@ public abstract class DrawableController {
 
     protected Drawable drawable;
 
+    public abstract void initDrawable();
+
     public MainController getMainController() {
         return mainController;
     }
@@ -22,6 +24,4 @@ public abstract class DrawableController {
     public void setDrawable(Drawable drawable) {
         this.drawable = drawable;
     }
-
-    public abstract void initDrawable();
 }

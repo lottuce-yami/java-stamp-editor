@@ -1,23 +1,13 @@
 package moe.lottuce.stampeditor.controllers;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import moe.lottuce.stampeditor.drawables.Drawable;
 import moe.lottuce.stampeditor.drawables.HorizontalText;
-import moe.lottuce.stampeditor.drawables.Text;
 
-import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -47,7 +37,7 @@ public class HorizontalTextController extends DrawableController {
     private ChoiceBox<String> textBaseline;
 
     @FXML
-    private Button deleteButton;
+    private Button removeButton;
 
     private static final ResourceBundle localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
 
@@ -101,16 +91,17 @@ public class HorizontalTextController extends DrawableController {
             ((HorizontalText) drawable).setTextBaseline(baselineMap.get(newValue));
             mainController.redrawCanvas();
         });
-        deleteButton.setOnAction((actionEvent) -> {
-            mainController.removeDrawable(drawable);
-        });
+
+        removeButton.setOnAction((actionEvent) -> mainController.removeDrawable(drawable));
     }
 
     public void initDrawable() {
         this.text.setText(((HorizontalText) drawable).getText());
+
         Font font = ((HorizontalText) drawable).getFont();
         this.fontName.setText(font.getName());
         this.fontSize.getValueFactory().setValue(font.getSize());
+
         this.color.setValue((Color) ((HorizontalText) drawable).getPaint());
         this.x.getValueFactory().setValue(((HorizontalText) drawable).getX());
         this.y.getValueFactory().setValue(((HorizontalText) drawable).getY());

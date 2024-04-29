@@ -7,13 +7,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import moe.lottuce.stampeditor.drawables.CircularFrame;
 import moe.lottuce.stampeditor.drawables.CircularText;
-import moe.lottuce.stampeditor.drawables.Drawable;
-import moe.lottuce.stampeditor.drawables.HorizontalText;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class CircularTextController extends DrawableController {
     @FXML
@@ -41,7 +35,7 @@ public class CircularTextController extends DrawableController {
     private Spinner<Double> tracking;
 
     @FXML
-    private Button deleteButton;
+    private Button removeButton;
 
     @FXML
     private void initialize() {
@@ -77,16 +71,17 @@ public class CircularTextController extends DrawableController {
             ((CircularText) drawable).setTracking(newValue);
             mainController.redrawCanvas();
         });
-        deleteButton.setOnAction((actionEvent) -> {
-            mainController.removeDrawable(drawable);
-        });
+
+        removeButton.setOnAction((actionEvent) -> mainController.removeDrawable(drawable));
     }
 
     public void initDrawable() {
         this.text.setText(((CircularText) drawable).getText());
+
         Font font = ((CircularText) drawable).getFont();
         this.fontName.setText(font.getName());
         this.fontSize.getValueFactory().setValue(font.getSize());
+
         this.color.setValue((Color) ((CircularText) drawable).getPaint());
         this.diameter.getValueFactory().setValue(((CircularText) drawable).getDiameter());
         this.startAngle.getValueFactory().setValue(((CircularText) drawable).getStartAngle());
