@@ -14,37 +14,13 @@ import moe.lottuce.stampeditor.io.PaintConverter;
 public abstract class Text implements Drawable {
     protected String text;
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     @JsonSerialize(using = FontSerializer.class)
     @JsonDeserialize(using = FontDeserializer.class)
     protected Font font;
 
-    public Font getFont() {
-        return font;
-    }
-
-    public void setFont(Font font) {
-        this.font = font;
-    }
-
     @JsonSerialize(using = ToStringSerializer.class)
     @JsonDeserialize(contentConverter = PaintConverter.class)
     protected Paint paint;
-
-    public Paint getPaint() {
-        return paint;
-    }
-
-    public void setPaint(Paint paint) {
-        this.paint = paint;
-    }
 
     public Text() {
         text = "Example text";
@@ -60,4 +36,28 @@ public abstract class Text implements Drawable {
 
     @Override
     public abstract void draw(Canvas canvas);
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Font getFont() {
+        return font;
+    }
+
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
+    public Paint getPaint() {
+        return paint;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
 }

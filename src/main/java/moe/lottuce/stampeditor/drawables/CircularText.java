@@ -13,43 +13,11 @@ import java.util.Arrays;
 public final class CircularText extends Text {
     private double diameter;
 
-    public double getDiameter() {
-        return diameter;
-    }
-
-    public void setDiameter(double diameter) {
-        this.diameter = diameter;
-    }
-
     private double startAngle;
-
-    public double getStartAngle() {
-        return startAngle;
-    }
-
-    public void setStartAngle(double startAngle) {
-        this.startAngle = startAngle;
-    }
 
     private double endAngle;
 
-    public double getEndAngle() {
-        return endAngle;
-    }
-
-    public void setEndAngle(double endAngle) {
-        this.endAngle = endAngle;
-    }
-
     private double tracking;
-
-    public double getTracking() {
-        return tracking;
-    }
-
-    public void setTracking(double tracking) {
-        this.tracking = tracking;
-    }
 
     public CircularText() {
         super();
@@ -147,5 +115,37 @@ public final class CircularText extends Text {
         }
 
         return charsWidth;
+    }
+
+    public double getDiameter() {
+        return diameter;
+    }
+
+    public void setDiameter(double diameter) {
+        this.diameter = diameter;
+    }
+
+    public double getStartAngle() {
+        return startAngle;
+    }
+
+    public void setStartAngle(double startAngle) {
+        this.startAngle = startAngle;
+    }
+
+    public double getEndAngle() {
+        return endAngle;
+    }
+
+    public void setEndAngle(double endAngle) {
+        this.endAngle = endAngle;
+    }
+
+    public double getTracking() {
+        return tracking;
+    }
+
+    public void setTracking(double tracking) {
+        this.tracking = tracking;
     }
 }

@@ -11,43 +11,11 @@ import javafx.scene.text.TextAlignment;
 public final class HorizontalText extends Text {
     private double x;
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
     private double y;
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
 
     private TextAlignment textAlignment;
 
-    public TextAlignment getTextAlignment() {
-        return textAlignment;
-    }
-
-    public void setTextAlignment(TextAlignment textAlignment) {
-        this.textAlignment = textAlignment;
-    }
-
     private VPos textBaseline;
-
-    public VPos getTextBaseline() {
-        return textBaseline;
-    }
-
-    public void setTextBaseline(VPos textBaseline) {
-        this.textBaseline = textBaseline;
-    }
 
     public HorizontalText() {
         super();
@@ -80,5 +48,37 @@ public final class HorizontalText extends Text {
         gc.setTextBaseline(VPos.BASELINE);
         gc.setFont(Font.getDefault());
         gc.setFill(Color.BLACK);
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public TextAlignment getTextAlignment() {
+        return textAlignment;
+    }
+
+    public void setTextAlignment(TextAlignment textAlignment) {
+        this.textAlignment = textAlignment;
+    }
+
+    public VPos getTextBaseline() {
+        return textBaseline;
+    }
+
+    public void setTextBaseline(VPos textBaseline) {
+        this.textBaseline = textBaseline;
     }
 }

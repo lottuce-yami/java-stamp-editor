@@ -8,14 +8,6 @@ import javafx.scene.paint.Paint;
 public final class CircularFrame extends Frame {
     private double diameter;
 
-    public double getDiameter() {
-        return diameter;
-    }
-
-    public void setDiameter(double diameter) {
-        this.diameter = diameter;
-    }
-
     public CircularFrame() {
         super();
         diameter = 10;
@@ -44,5 +36,13 @@ public final class CircularFrame extends Frame {
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1.0);
+    }
+
+    public double getDiameter() {
+        return diameter;
+    }
+
+    public void setDiameter(double diameter) {
+        this.diameter = diameter;
     }
 }
