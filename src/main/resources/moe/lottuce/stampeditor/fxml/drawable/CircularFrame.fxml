@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
+
 <VBox fx:controller="moe.lottuce.stampeditor.controllers.CircularFrameController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
         <VBox>
             <Label text="%width" />
             <Spinner fx:id="width" editable="true">
                 <valueFactory>
-                    <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="1.0" />
+                    <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="128" amountToStepBy="1" />
                 </valueFactory>
             </Spinner>
         </VBox>
@@ -26,9 +23,9 @@
         <Label text="%diameter" />
         <Spinner fx:id="diameter" editable="true">
             <valueFactory>
-                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0.0" max="1000.0" amountToStepBy="10.0" />
+                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="10" />
             </valueFactory>
         </Spinner>
     </VBox>
-    <Button fx:id="deleteButton" text="%remove" prefWidth="100.0" />
+    <Button fx:id="deleteButton" text="%remove" prefWidth="100" />
 </VBox>

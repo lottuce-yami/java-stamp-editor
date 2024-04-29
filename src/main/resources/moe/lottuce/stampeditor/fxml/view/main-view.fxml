@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.input.KeyCodeCombination?>
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controllers.MainController" prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controllers.MainController" prefHeight="400" prefWidth="600">
    <top>
       <MenuBar>
          <Menu text="%file">
@@ -33,14 +33,14 @@
       </MenuBar>
    </top>
    <left>
-      <ScrollPane prefWidth="200.0" hbarPolicy="NEVER">
+      <ScrollPane prefWidth="200" hbarPolicy="NEVER">
          <VBox fx:id="drawablePanes">
-            <Button onAction="#onDrawableAdded" text="+" prefWidth="200.0" />
+            <Button onAction="#onDrawableAdded" text="+" prefWidth="200" />
          </VBox>
       </ScrollPane>
    </left>
    <center>
-      <Canvas fx:id="canvas" height="300.0" width="300.0" />
+      <Canvas fx:id="canvas" height="300" width="300" />
    </center>
    <bottom>
       <HBox spacing="15">
