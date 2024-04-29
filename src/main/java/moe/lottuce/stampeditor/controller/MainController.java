@@ -72,10 +72,7 @@ public class MainController {
             redrawCanvas();
         }
         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("openError"), e.getLocalizedMessage()));
-            alert.showAndWait()
-                    .filter(response -> response == ButtonType.OK)
-                    .ifPresent(response -> alert.close());
+            showIOAlert(e);
         }
     }
 
@@ -90,10 +87,7 @@ public class MainController {
             }
         }
         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("saveError"), e.getLocalizedMessage()));
-            alert.showAndWait()
-                    .filter(response -> response == ButtonType.OK)
-                    .ifPresent(response -> alert.close());
+            showIOAlert(e);
         }
     }
 
@@ -103,10 +97,7 @@ public class MainController {
             saveFile.set(Writer.saveAs(canvas.getScene().getWindow(), new Stamp(drawables.keySet().stream().toList())));
         }
         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("saveError"), e.getLocalizedMessage()));
-            alert.showAndWait()
-                    .filter(response -> response == ButtonType.OK)
-                    .ifPresent(response -> alert.close());
+            showIOAlert(e);
         }
     }
 
@@ -116,15 +107,12 @@ public class MainController {
             Exporter.exportAs(canvas);
         }
         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("exportError"), e.getLocalizedMessage()));
-            alert.showAndWait()
-                    .filter(response -> response == ButtonType.OK)
-                    .ifPresent(response -> alert.close());
+            showIOAlert(e);
         }
     }
 
     @FXML
-    protected void onDrawableAdded() throws IOException {
+    protected void onDrawableAdded() {
         Drawable drawable;
         String circularFrame = localization.getString("CircularFrame");
         String circularText = localization.getString("CircularText");
@@ -165,17 +153,24 @@ public class MainController {
         }
     }
 
-    protected TitledPane createTitledPane(Drawable drawable) throws IOException {
+    protected TitledPane createTitledPane(Drawable drawable) {
         String className = drawable.getClass().getSimpleName();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", className)));
-        fxmlLoader.setResources(localization);
-        TitledPane titledPane = new TitledPane(localization.getString(className), fxmlLoader.load());
-        ((DrawableController) fxmlLoader.getController()).setMainController(this);
-        ((DrawableController) fxmlLoader.getController()).setDrawable(drawable);
-        ((DrawableController) fxmlLoader.getController()).initDrawable();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(StampEditorApplication.class.getResource(String.format("fxml/drawable/%1$s.fxml", className)));
+            fxmlLoader.setResources(localization);
+            TitledPane titledPane = new TitledPane(localization.getString(className), fxmlLoader.load());
+            ((DrawableController) fxmlLoader.getController()).setMainController(this);
+            ((DrawableController) fxmlLoader.getController()).setDrawable(drawable);
+            ((DrawableController) fxmlLoader.getController()).initDrawable();
 
-        return titledPane;
+            return titledPane;
+        }
+        catch (IOException e) {
+            showIOAlert(e);
+        }
+
+        return null;
     }
 
     protected void removeDrawable(Drawable drawable) {
@@ -191,4 +186,10 @@ public class MainController {
         return response.isPresent() && response.get() == ButtonType.OK;
     }
 
+    private void showIOAlert(IOException e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s %2$s", localization.getString("ioError"), e.getLocalizedMessage()));
+        alert.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .ifPresent(response -> alert.close());
+    }
 }
