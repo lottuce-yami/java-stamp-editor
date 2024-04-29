@@ -11,11 +11,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class Exporter {
+    private static final ResourceBundle localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
+
     public static void exportAs(Canvas canvas) throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Експорт...");
+        fileChooser.setTitle(localization.getString("export"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );

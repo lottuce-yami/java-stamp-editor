@@ -7,11 +7,14 @@ import javafx.stage.Window;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.ResourceBundle;
 
 public class Reader {
+    private static final ResourceBundle localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
+
     public static Stamp open(Window window) throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Відкрити...");
+        fileChooser.setTitle(localization.getString("open"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JSON", "*.json")
         );

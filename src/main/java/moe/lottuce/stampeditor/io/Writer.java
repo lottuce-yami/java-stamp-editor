@@ -6,11 +6,14 @@ import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class Writer {
+    private static final ResourceBundle localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
+
     public static File saveAs(Window window, Stamp stamp) throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Зберегти як...");
+        fileChooser.setTitle(localization.getString("saveAs"));
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JSON", "*.json")
         );
