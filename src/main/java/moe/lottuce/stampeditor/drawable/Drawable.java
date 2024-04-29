@@ -1,4 +1,4 @@
-package moe.lottuce.stampeditor.drawables;
+package moe.lottuce.stampeditor.drawable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

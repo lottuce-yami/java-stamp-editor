@@ -1,4 +1,4 @@
-package moe.lottuce.stampeditor.controllers;
+package moe.lottuce.stampeditor.controller;
 
 import javafx.fxml.FXML;
 import javafx.geometry.VPos;
@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import moe.lottuce.stampeditor.drawables.HorizontalText;
+import moe.lottuce.stampeditor.drawable.HorizontalText;
 
 import java.util.Map;
 import java.util.ResourceBundle;

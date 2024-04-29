@@ -3,12 +3,10 @@ package moe.lottuce.stampeditor.io;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import moe.lottuce.stampeditor.drawables.Drawable;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 
 public class Reader {
     public static Stamp open(Window window) throws IOException {

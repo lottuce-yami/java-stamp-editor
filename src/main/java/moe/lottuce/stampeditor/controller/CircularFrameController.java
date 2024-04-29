@@ -1,11 +1,11 @@
-package moe.lottuce.stampeditor.controllers;
+package moe.lottuce.stampeditor.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.paint.Color;
-import moe.lottuce.stampeditor.drawables.*;
+import moe.lottuce.stampeditor.drawable.*;
 
 public class CircularFrameController extends DrawableController {
     @FXML

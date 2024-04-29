@@ -1,6 +1,6 @@
-package moe.lottuce.stampeditor.controllers;
+package moe.lottuce.stampeditor.controller;
 
-import moe.lottuce.stampeditor.drawables.Drawable;
+import moe.lottuce.stampeditor.drawable.Drawable;
 
 public abstract class DrawableController {
     protected MainController mainController;

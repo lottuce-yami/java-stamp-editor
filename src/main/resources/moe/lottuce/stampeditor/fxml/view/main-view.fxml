@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.input.KeyCodeCombination?>
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controllers.MainController" prefHeight="400" prefWidth="600">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moe.lottuce.stampeditor.controller.MainController" prefHeight="400" prefWidth="600">
    <top>
       <MenuBar>
          <Menu text="%file">

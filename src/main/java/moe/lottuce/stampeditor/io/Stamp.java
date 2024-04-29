@@ -1,6 +1,6 @@
 package moe.lottuce.stampeditor.io;
 
-import moe.lottuce.stampeditor.drawables.Drawable;
+import moe.lottuce.stampeditor.drawable.Drawable;
 
 import java.util.List;
 

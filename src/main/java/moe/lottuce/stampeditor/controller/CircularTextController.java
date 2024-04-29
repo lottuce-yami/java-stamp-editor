@@ -1,4 +1,4 @@
-package moe.lottuce.stampeditor.controllers;
+package moe.lottuce.stampeditor.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,7 +7,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import moe.lottuce.stampeditor.drawables.CircularText;
+import moe.lottuce.stampeditor.drawable.CircularText;
 
 public class CircularTextController extends DrawableController {
     @FXML
