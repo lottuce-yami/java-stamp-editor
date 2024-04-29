@@ -1,5 +1,7 @@
 package moe.lottuce.stampeditor.controllers;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,17 +34,26 @@ public class MainController {
     @FXML
     private VBox drawablePanes;
 
+    @FXML
+    private Label canvasSize;
+
+    @FXML
+    private Label filePath;
+
     private static final ResourceBundle localization = ResourceBundle.getBundle("moe/lottuce/stampeditor/bundles/StampEditor");
 
     private GraphicsContext gc;
 
     private Map<Drawable, TitledPane> drawables = new HashMap<>();
 
-    private File saveFile;
+    private ObjectProperty<File> saveFile = new SimpleObjectProperty<>();
 
     @FXML
     private void initialize() {
         gc = canvas.getGraphicsContext2D();
+
+        canvasSize.setText(String.format("%1$s: %2$sx%3$s", localization.getString("canvasSize"), canvas.getWidth(), canvas.getHeight()));
+        saveFile.addListener((o, oldValue, newValue) -> filePath.setText(saveFile.get().getAbsolutePath()));
     }
 
     @FXML
@@ -80,7 +91,7 @@ public class MainController {
                 onSaveAs();
             }
             else {
-                Writer.save(saveFile, new Stamp(drawables.keySet().stream().toList()));
+                Writer.save(saveFile.get(), new Stamp(drawables.keySet().stream().toList()));
             }
         }
         catch (IOException e) {
@@ -94,7 +105,7 @@ public class MainController {
     @FXML
     protected void onSaveAs() {
         try {
-            saveFile = Writer.saveAs(canvas.getScene().getWindow(), new Stamp(drawables.keySet().stream().toList()));
+            saveFile.set(Writer.saveAs(canvas.getScene().getWindow(), new Stamp(drawables.keySet().stream().toList())));
         }
         catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, String.format("%1$s: %2$s", localization.getString("saveError"), e.getLocalizedMessage()));

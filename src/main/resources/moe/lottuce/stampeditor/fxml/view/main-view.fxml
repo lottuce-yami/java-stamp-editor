@@ -43,9 +43,9 @@
       <Canvas fx:id="canvas" height="300.0" width="300.0" />
    </center>
    <bottom>
-      <HBox>
-         <Label text="Назва файлу" />
-         <Label text="Розмір файлу" />
+      <HBox spacing="15">
+         <Label fx:id="filePath" />
+         <Label fx:id="canvasSize" />
       </HBox>
    </bottom>
 </BorderPane>
