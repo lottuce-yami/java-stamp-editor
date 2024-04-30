@@ -23,7 +23,7 @@
     <Label text="%diameter" />
     <Spinner fx:id="diameter" editable="true">
         <valueFactory>
-            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="1" />
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="10" />
         </valueFactory>
     </Spinner>
 

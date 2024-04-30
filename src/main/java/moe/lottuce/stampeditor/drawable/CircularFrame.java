@@ -35,7 +35,7 @@ public final class CircularFrame extends Frame {
         );
 
         gc.setStroke(Color.BLACK);
-        gc.setLineWidth(1.0);
+        gc.setLineWidth(1);
     }
 
     public double getDiameter() {

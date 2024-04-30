@@ -22,7 +22,7 @@ public final class CircularText extends Text {
     public CircularText() {
         super();
         diameter = 100;
-        startAngle = 0;
+        startAngle = 180;
         endAngle = 360;
         tracking = 1;
     }
