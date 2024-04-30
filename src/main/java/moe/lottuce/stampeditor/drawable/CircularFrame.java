@@ -10,11 +10,11 @@ public final class CircularFrame extends Frame {
 
     public CircularFrame() {
         super();
-        diameter = 10;
+        diameter = 290;
     }
 
-    public CircularFrame(double width, Paint paint, double diameter) {
-        super(width, paint);
+    public CircularFrame(double strokeWidth, Paint paint, double diameter) {
+        super(strokeWidth, paint);
         setDiameter(diameter);
     }
 
@@ -25,7 +25,7 @@ public final class CircularFrame extends Frame {
         double radius = diameter / 2;
 
         gc.setStroke(paint);
-        gc.setLineWidth(width);
+        gc.setLineWidth(strokeWidth);
 
         gc.strokeOval(
                 canvas.getWidth() / 2 - radius,

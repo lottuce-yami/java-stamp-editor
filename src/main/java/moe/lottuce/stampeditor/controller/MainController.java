@@ -9,10 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import moe.lottuce.stampeditor.StampEditorApplication;
-import moe.lottuce.stampeditor.drawable.CircularFrame;
-import moe.lottuce.stampeditor.drawable.CircularText;
-import moe.lottuce.stampeditor.drawable.Drawable;
-import moe.lottuce.stampeditor.drawable.HorizontalText;
+import moe.lottuce.stampeditor.drawable.*;
 import moe.lottuce.stampeditor.io.Exporter;
 import moe.lottuce.stampeditor.io.Reader;
 import moe.lottuce.stampeditor.io.Stamp;
@@ -47,7 +44,7 @@ public class MainController {
     private void initialize() {
         gc = canvas.getGraphicsContext2D();
 
-        canvasSize.setText(String.format("%1$s: %2$sx%3$s", localization.getString("canvasSize"), canvas.getWidth(), canvas.getHeight()));
+        canvasSize.setText(String.format("%1$s: %2$s x %3$s", localization.getString("canvasSize"), canvas.getWidth(), canvas.getHeight()));
         saveFile.addListener((o, oldValue, newValue) -> filePath.setText(saveFile.get().getAbsolutePath()));
     }
 
@@ -114,29 +111,34 @@ public class MainController {
     @FXML
     protected void onDrawableAdded() {
         Drawable drawable;
+        String rectangularFrame = localization.getString("RectangularFrame");
         String circularFrame = localization.getString("CircularFrame");
         String circularText = localization.getString("CircularText");
         String horizontalText = localization.getString("HorizontalText");
 
         ChoiceDialog<String> choiceDialog = new ChoiceDialog<>();
-        choiceDialog.getItems().addAll(circularFrame, circularText, horizontalText);
+        choiceDialog.getItems().addAll(rectangularFrame, circularFrame, horizontalText, circularText);
+        choiceDialog.setSelectedItem(rectangularFrame);
 
         Optional<String> result = choiceDialog.showAndWait();
         if (result.isEmpty()) {
             return;
         }
 
-        if (result.get().equals(circularFrame)) {
-            drawable = new CircularFrame();
+        if (result.get().equals(rectangularFrame)) {
+            drawable = new RectangularFrame();
         }
-        else if (result.get().equals(circularText)) {
-            drawable = new CircularText();
+        else if (result.get().equals(circularFrame)) {
+            drawable = new CircularFrame();
         }
         else if (result.get().equals(horizontalText)) {
             drawable = new HorizontalText();
         }
+        else if (result.get().equals(circularText)) {
+            drawable = new CircularText();
+        }
         else {
-            throw new RuntimeException();
+                throw new RuntimeException();
         }
 
         TitledPane titledPane = createTitledPane(drawable);

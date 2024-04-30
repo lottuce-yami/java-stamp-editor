@@ -2,30 +2,24 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
 
-<VBox fx:controller="moe.lottuce.stampeditor.controller.CircularFrameController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-        <VBox>
-            <Label text="%width" />
-            <Spinner fx:id="width" editable="true">
-                <valueFactory>
-                    <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="128" amountToStepBy="1" />
-                </valueFactory>
-            </Spinner>
-        </VBox>
-        <VBox>
-            <Label text="%color" />
-            <ColorPicker fx:id="color" />
-        </VBox>
-    </VBox>
-    <VBox>
-        <Label text="%diameter" />
-        <Spinner fx:id="diameter" editable="true">
-            <valueFactory>
-                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="10" />
-            </valueFactory>
-        </Spinner>
-    </VBox>
+<VBox fx:controller="moe.lottuce.stampeditor.controller.CircularFrameController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="5">
+    <Label text="%strokeWidth" />
+    <Spinner fx:id="strokeWidth" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="128" amountToStepBy="1" />
+        </valueFactory>
+    </Spinner>
+
+    <Label text="%color" />
+    <ColorPicker fx:id="color" />
+
+    <Label text="%diameter" />
+    <Spinner fx:id="diameter" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="10" />
+        </valueFactory>
+    </Spinner>
+
     <Button fx:id="removeButton" text="%remove" prefWidth="100" />
 </VBox>

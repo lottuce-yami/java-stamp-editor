@@ -2,60 +2,51 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory?>
 
-<VBox fx:controller="moe.lottuce.stampeditor.controller.CircularTextController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-        <VBox>
-            <Label text="%text" />
-            <TextField fx:id="text" />
-        </VBox>
-        <VBox>
-            <Label text="%fontName" />
-            <TextField fx:id="fontName" />
-            <Label text="%fontSize" />
-            <Spinner fx:id="fontSize" editable="true">
-                <valueFactory>
-                    <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="128" amountToStepBy="1" />
-                </valueFactory>
-            </Spinner>
-        </VBox>
-        <VBox>
-            <Label text="%color" />
-            <ColorPicker fx:id="color" />
-        </VBox>
-    </VBox>
-    <VBox>
-        <Label text="%diameter" />
-        <Spinner fx:id="diameter" editable="true">
-            <valueFactory>
-                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="1" />
-            </valueFactory>
-        </Spinner>
-    </VBox>
-    <VBox>
-        <Label text="%startAngle" />
-        <Spinner fx:id="startAngle" editable="true">
-            <valueFactory>
-                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="360" amountToStepBy="10" />
-            </valueFactory>
-        </Spinner>
-    </VBox>
-    <VBox>
-        <Label text="%endAngle" />
-        <Spinner fx:id="endAngle" editable="true">
-            <valueFactory>
-                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="720" amountToStepBy="10" />
-            </valueFactory>
-        </Spinner>
-    </VBox>
-    <VBox>
-        <Label text="%tracking" />
-        <Spinner fx:id="tracking" editable="true">
-            <valueFactory>
-                <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="128" amountToStepBy="1" />
-            </valueFactory>
-        </Spinner>
-    </VBox>
+<VBox fx:controller="moe.lottuce.stampeditor.controller.CircularTextController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="5">
+    <Label text="%text" />
+    <TextField fx:id="text" />
+
+    <Label text="%fontName" />
+    <TextField fx:id="fontName" />
+
+    <Label text="%fontSize" />
+    <Spinner fx:id="fontSize" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="128" amountToStepBy="1" />
+        </valueFactory>
+    </Spinner>
+
+    <Label text="%color" />
+    <ColorPicker fx:id="color" />
+
+    <Label text="%diameter" />
+    <Spinner fx:id="diameter" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="1" />
+        </valueFactory>
+    </Spinner>
+
+    <Label text="%startAngle" />
+    <Spinner fx:id="startAngle" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="360" amountToStepBy="10" />
+        </valueFactory>
+    </Spinner>
+
+    <Label text="%endAngle" />
+    <Spinner fx:id="endAngle" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="720" amountToStepBy="10" />
+        </valueFactory>
+    </Spinner>
+
+    <Label text="%tracking" />
+    <Spinner fx:id="tracking" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="128" amountToStepBy="1" />
+        </valueFactory>
+    </Spinner>
+
     <Button fx:id="removeButton" text="%remove" prefWidth="100" />
 </VBox>

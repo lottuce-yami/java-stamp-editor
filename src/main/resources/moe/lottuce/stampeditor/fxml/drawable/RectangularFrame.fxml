@@ -3,15 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:controller="moe.lottuce.stampeditor.controller.HorizontalTextController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="5">
-    <Label text="%text" />
-    <TextField fx:id="text" />
-
-    <Label text="%fontName" />
-    <TextField fx:id="fontName" />
-
-    <Label text="%fontSize" />
-    <Spinner fx:id="fontSize" editable="true">
+<VBox fx:controller="moe.lottuce.stampeditor.controller.RectangularFrameController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="5">
+    <Label text="%strokeWidth" />
+    <Spinner fx:id="strokeWidth" editable="true">
         <valueFactory>
             <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="128" amountToStepBy="1" />
         </valueFactory>
@@ -34,11 +28,19 @@
         </valueFactory>
     </Spinner>
 
-    <Label text="%textAlignment" />
-    <ChoiceBox fx:id="textAlignment" />
+    <Label text="%width" />
+    <Spinner fx:id="width" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="10" />
+        </valueFactory>
+    </Spinner>
 
-    <Label text="%textBaseline" />
-    <ChoiceBox fx:id="textBaseline" />
+    <Label text="%height" />
+    <Spinner fx:id="height" editable="true">
+        <valueFactory>
+            <SpinnerValueFactory.DoubleSpinnerValueFactory min="0" max="300" amountToStepBy="10" />
+        </valueFactory>
+    </Spinner>
 
     <Button fx:id="removeButton" text="%remove" prefWidth="100" />
 </VBox>

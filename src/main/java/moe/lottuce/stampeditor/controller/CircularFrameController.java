@@ -9,7 +9,7 @@ import moe.lottuce.stampeditor.drawable.*;
 
 public class CircularFrameController extends DrawableController {
     @FXML
-    protected Spinner<Double> width;
+    protected Spinner<Double> strokeWidth;
 
     @FXML
     protected ColorPicker color;
@@ -22,8 +22,8 @@ public class CircularFrameController extends DrawableController {
 
     @FXML
     private void initialize() {
-        width.valueProperty().addListener((o, oldValue, newValue) -> {
-            ((CircularFrame) drawable).setWidth(newValue);
+        strokeWidth.valueProperty().addListener((o, oldValue, newValue) -> {
+            ((CircularFrame) drawable).setStrokeWidth(newValue);
             mainController.redrawCanvas();
         });
         color.valueProperty().addListener((o, oldValue, newValue) -> {
@@ -38,8 +38,9 @@ public class CircularFrameController extends DrawableController {
         removeButton.setOnAction((actionEvent) -> mainController.removeDrawable(drawable));
     }
 
+    @Override
     public void initDrawable() {
-        this.width.getValueFactory().setValue(((CircularFrame) drawable).getWidth());
+        this.strokeWidth.getValueFactory().setValue(((CircularFrame) drawable).getStrokeWidth());
         this.color.setValue((Color) ((CircularFrame) drawable).getPaint());
         this.diameter.getValueFactory().setValue(((CircularFrame) drawable).getDiameter());
     }
