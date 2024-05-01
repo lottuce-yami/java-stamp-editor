@@ -76,7 +76,7 @@ public class MainController {
     @FXML
     protected void onSave() {
         try {
-            if (saveFile == null) {
+            if (saveFile.get() == null) {
                 onSaveAs();
             }
             else {
