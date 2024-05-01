@@ -44,8 +44,8 @@
    </center>
    <bottom>
       <HBox spacing="15">
-         <Label fx:id="filePath" />
          <Label fx:id="canvasSize" />
+         <Label fx:id="filePath" />
       </HBox>
    </bottom>
 </BorderPane>
